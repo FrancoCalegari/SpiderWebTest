@@ -1,3 +1,13 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Courier New', Courier, monospace;
     margin: 0;
@@ -62,7 +72,7 @@ section h2 {
     color: #ff6f61;
 }
 
-.carousel, .gallery, .testimonials, .sponsor-logos {
+.carousel, .sponsor-logos {
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -74,16 +84,7 @@ section h2 {
     grid-template-columns: auto;
 }
 
-.card {
-    border: 1px solid #ff6f61;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 300px; /* Tamaño normal */
-    text-align: center;
-    background-color: #ffe5e2;
-    transition: transform 0.3s;
-    
-}
+
 
 .spiderweb-card {
     max-width: 600px; /* Tarjeta más grande para SpiderWeb */
@@ -121,4 +122,276 @@ section h2 {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+}
+
+
+.clients {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.clients h2 {
+    margin-bottom: 20px;
+    color: #ff6f61;
+}
+
+.testimonials {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card.cliente {
+    border: 1px solid #ff6f61;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 300px;
+    text-align: center;
+    background-color: #ffe5e2;
+    transition: transform 0.3s;
+}
+
+.card.cliente:hover {
+    transform: scale(1.05);
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.rating {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #ffd700; /* Color dorado para las estrellas */
+}
+
+.projects {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.projects h2 {
+    margin-bottom: 20px;
+    color: #ff6f61;
+}
+
+.gallery {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    gap: 10px;
+    padding: 3rem 0px 3rem 0px;
+}
+
+/* Estilos existentes */
+
+.card {
+    border: 1px solid #ff6f61;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 300px;
+    max-width: 300px;
+    text-align: center;
+    background-color: #ffe5e2;
+    transition: transform 0.3s, box-shadow 0.3s;
+    flex-shrink: 0;
+}
+
+.gallery .card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.gallery .card h3 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.gallery .card p {
+    color: #666;
+}
+
+.card.focused {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-color: #ff6f61;
+}
+
+
+/* Servicios Section */
+.services-section {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.services-section h2 {
+    margin-bottom: 20px;
+    color: #ff6f61;
+}
+
+.services-carousel {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    justify-content: center;
+    gap: 20px;
+    padding: 1rem;
+}
+
+.service-card {
+    border: 1px solid #ff6f61;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 300px;
+    max-width: 300px;
+    text-align: center;
+    background-color: #ffe5e2;
+    transition: transform 0.3s, box-shadow 0.3s;
+    flex-shrink: 0;
+}
+
+.service-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-color: #ff6f61;
+}
+
+.services-carousel .service-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+
+/* Clientes Satisfechos Section */
+.satisfied-clients {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.satisfied-clients h2 {
+    margin-bottom: 20px;
+    color: #ff6f61;
+}
+
+.testimonials-carousel {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.testimonial-card {
+    border: 1px solid #ff6f61;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 300px;
+    text-align: center;
+    background-color: #ffe5e2;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.testimonial-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-color: #ff6f61;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.rating {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #ffd700; /* Color dorado para las estrellas */
+}
+
+/* Contacto Section */
+.contact {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.contact h2 {
+    margin-bottom: 20px;
+    color: #ff6f61;
+}
+
+.contactcardcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.contactcard {
+    border: 1px solid #ff6f61;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 300px;
+    text-align: center;
+    background-color: #ffe5e2;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.contactcard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contactcard img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.contactcard h3 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.contact-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.contact-buttons button {
+    padding: 10px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-buttons button:hover {
+    background-color: #e0554f; /* Cambia el tono al pasar el ratón */
+}
+
+/* Specific Style for SpiderWeb Card */
+.spiderweb-card {
+    max-width: 600px; /* Tarjeta más grande para SpiderWeb */
+    background-color: #ffcccb; /* Color distinto si lo deseas */
 }
