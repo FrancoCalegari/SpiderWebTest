@@ -401,6 +401,78 @@ section h2 {
 }
 
 
+/*animations*/
+.animation-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffcccb;
+    width: 100%;
+    height: 100%;
+    animation: fadeIn 1s forwards;
+}
+
+#logo {
+    width: 100px; /* Ajusta el tamaño del logo según sea necesario */
+    animation: moveToCenter 1s forwards;
+}
+
+#text {
+    margin-top: 20px;
+    font-size: 2rem;
+    opacity: 0;
+    animation: fadeInText 1s forwards 1s;
+}
+
+/* Animaciones */
+@keyframes moveToCenter {
+    from {
+        transform: translateY(-200%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes blurAndFadeOut {
+    0% {
+        filter: blur(0);
+        opacity: 1;
+    }
+    100% {
+        filter: blur(20px);
+        opacity: 0;
+    }
+}
+
+.main-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+
+
 @media (max-width: 400px) {
     .gallery {
         padding: 1rem 1rem 3rem 3rem;
