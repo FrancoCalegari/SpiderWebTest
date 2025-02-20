@@ -75,13 +75,75 @@ section h2 {
     color: #ff6f61;
 }
 
-.carousel, .sponsor-logos {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+
+
+/*section sponsor edit*/
+:root {
+    --speed: 20s; /* Ajusta la velocidad */
+    --logo-width: 150px; /* Ancho de los logos */
+    --gap: 20px; /* Espaciado entre logos */
 }
 
+/* Estilos generales */
+.sponsors {
+    text-align: center;
+    overflow: hidden;
+    padding: 20px;
+    background: #f8f8f8;
+}
+
+/* Contenedor del carrusel */
+.carousel {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+/* Contenedor en movimiento */
+.sponsor-track {
+    display: flex;
+    width: max-content;
+    animation: scroll var(--speed) linear infinite;
+}
+
+/* Logos en el carrusel */
+.sponsor-logos {
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+}
+
+/* Estilo de los logos */
+.sponsor-logos img {
+    width: var(--logo-width);
+    height: 100px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease-in-out;
+}
+
+/* Efecto al pasar el mouse */
+.sponsor-logos img:hover {
+    filter: grayscale(0%);
+}
+
+/* Animación infinita */
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* Opcional: Pausar la animación al hacer hover */
+.sponsor-track:hover {
+    animation-play-state: paused;
+}
+
+/*sponosrs*/
 #contact {
     display: grid;
     grid-template-columns: auto;
@@ -95,8 +157,8 @@ section h2 {
 }
 
 .contact-img {
-    width: 100%;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .contact-buttons {
@@ -122,9 +184,9 @@ section h2 {
 
 .contactcardcontainer {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
 
 
@@ -340,12 +402,6 @@ section h2 {
     color: #ff6f61;
 }
 
-.contactcardcontainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
 
 .contactcard {
     border: 1px solid #ff6f61;
@@ -364,8 +420,22 @@ section h2 {
 
 .contactcard img {
     width: 100%;
+    height: 100%;
+    object-fit: fill; /* Asegura que la imagen se ajuste sin deformarse */
+    position: relative;
     border-radius: 10px;
+}
+
+.imgcontactconainer {
+    width: 100%;
+    height: 40vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     margin-bottom: 10px;
+    background-color: red;
+    border-radius: 10px;
 }
 
 .contactcard h3 {
@@ -473,9 +543,59 @@ section h2 {
 
 
 
-@media (max-width: 400px) {
-    .gallery {
-        padding: 1rem 1rem 3rem 3rem;
 
-    }
-  }
+/*Footer*/
+
+.site-footer {
+    background-color: #ff6f61;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-size: large;
+}
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin: 10px;
+}
+.footer-section h3 {
+    border-bottom: 2px solid white;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-section ul li {
+    margin: 5px 0;
+}
+.footer-section a {
+    color: #333;
+    text-decoration: none;
+    text-decoration: solid;
+}
+.footer-section a:hover {
+    text-decoration: underline;
+}
+.footer-logo {
+    text-align: center;
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.footer-logo img {
+    max-width: 120px;
+    margin-bottom: 10px;
+}

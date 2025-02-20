@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpiderWeb</title>
-    <link rel="stylesheet" href="./assets/css/styles-red.css"> <!-- Cambia a styles-purple.css para el otro estilo -->
+    <link rel="stylesheet" href="./assets/css/main.css"> 
+    <link rel="stylesheet" href="./assets/css/responsive.css">
 </head>
 <body>
     <div class="animation-container">
@@ -114,22 +115,53 @@
 
     
 
-    <!-- Sponsors Section -->
-    <section id="sponsors" class="sponsors">
-        <h2>Sponsors y Colaboradores</h2>
-        <div class="sponsor-logos">
-            <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 1">
-            <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 2">
-            <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 3">
+<!-- Sponsors Section -->
+<section id="sponsors" class="sponsors">
+    <h2>Sponsors y Colaboradores</h2>
+    <div class="carousel">
+        <div class="sponsor-track">
+            <!-- Logos duplicados para efecto infinito -->
+            <div class="sponsor-logos">
+                <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 2">
+                <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 1">
+                <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 3">
+                <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 4">
+                <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 5">
+            </div>
+            <div class="sponsor-logos"> 
+                <!-- Se duplican los logos aquí -->
+                <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 1">
+                <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 2">
+                <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 3">
+                <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 4">
+                <img src="./assets/img/recurses/Sponsors/SponsorTestLogo1.png" alt="Sponsor 5">
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
 <!-- Contacto Section -->
 <section id="contact" class="contact">
     <h2>Contacto</h2>
     <div class="contactcardcontainer">
+
+        <div class="contactcard">
+            <div class="imgcontactconainer">
+                <img src="./assets/img/recurses/logos/Franco Calegari Logo (2).png" alt="SpiderWeb" class="contact-img"> <!-- Cambia el src a la imagen del logo o una imagen representativa -->
+            </div>
+            <h3>Franco Calegari</h3>
+            <div class="contact-buttons">
+                <button onclick="window.location.href='mailto:franco@spiderweb.com'">Email</button>
+                <button onclick="window.location.href='tel:+123456789'">Llamar</button>
+                <button onclick="window.location.href='https://www.linkedin.com/in/franco'">LinkedIn</button>
+            </div>
+        </div>
+
         <div class="contactcard spiderweb-card">
-            <img src="logo.png" alt="SpiderWeb" class="contact-img"> <!-- Cambia el src a la imagen del logo o una imagen representativa -->
+            <div class="imgcontactconainer">
+                <img src="./assets/img/recurses/logos/SpiderLogo.jpg" alt="SpiderWeb" class="contact-img"> <!-- Cambia el src a la imagen del logo o una imagen representativa -->
+            </div>
             <h3>SpiderWeb</h3>
             <div class="contact-buttons">
                 <button onclick="window.location.href='mailto:info@spiderweb.com'">Email</button>
@@ -138,19 +170,13 @@
             </div>
         </div>
     
-        <div class="contactcard">
-            <img src="franco.jpg" alt="Franco Calegari" class="contact-img"> <!-- Cambia el src a la imagen de Franco -->
-            <h3>Franco Calegari</h3>
-            <div class="contact-buttons">
-                <button onclick="window.location.href='mailto:franco@spiderweb.com'">Email</button>
-                <button onclick="window.location.href='tel:+123456789'">Llamar</button>
-                <button onclick="window.location.href='https://www.linkedin.com/in/franco'">LinkedIn</button>
-            </div>
-        </div>
+
     
         <div class="contactcard">
-            <img src="gabriel.jpg" alt="Gabriel Reina" class="contact-img"> <!-- Cambia el src a la imagen de Gabriel -->
-            <h3>Gabriel Reina</h3>
+            <div class="imgcontactconainer">
+                <img src="./assets/img/recurses/logos/gabodesing.jpg" alt="SpiderWeb" class="contact-img"> <!-- Cambia el src a la imagen del logo o una imagen representativa -->
+            </div>
+            <h3>Gabriel Desing</h3>
             <div class="contact-buttons">
                 <button onclick="window.location.href='mailto:gabriel@spiderweb.com'">Email</button>
                 <button onclick="window.location.href='tel:+123456789'">Llamar</button>
@@ -162,6 +188,44 @@
 </section>        
     </div>
 
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>Correo: contacto@spiderweb.com</li>
+                    <li>Instagram: <a href="https://instagram.com/spiderweb">@spiderweb</a></li>
+                    <li>Correo Gabi: gabi@spiderweb.com</li>
+                    <li>Correo Franco: franco@spiderweb.com</li>
+                    <li>GitHub Gabi: <a href="https://github.com/gabi">github.com/gabi</a></li>
+                    <li>GitHub Franco: <a href="https://github.com/franco">github.com/franco</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Servicios</h3>
+                <ul>
+                    <li>Diseños</li>
+                    <li>Webs</li>
+                    <li>Videos</li>
+                    <li>Fotos</li>
+                    <li>Marketing</li>
+                    <li>Comunity Manager</li>
+                    <li>Servicio Técnico Online</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Información</h3>
+                <ul>
+                    <li><a href="terminos.html">Términos y Condiciones</a></li>
+                    <li><a href="preguntas-frecuentes.html">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+            <div class="footer-logo">
+                <img src="./assets/img/logo.svg" alt="Logo SpiderWeb">
+                <p>SpiderWeb &copy; 2025</p>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

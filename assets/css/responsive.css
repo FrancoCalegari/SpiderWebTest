@@ -1,0 +1,38 @@
+
+
+/* Para pantallas de hasta 768px (tablets y móviles) */
+@media screen and (max-width: 768px) {
+
+}
+
+/* Para pantallas de hasta 480px (móviles) */
+@media screen and (max-width: 600px) {
+    .site-header nav{
+        padding-top: 1rem;
+        justify-content: center;
+        align-items: center;
+    }
+    header.hero .hero-content {
+        max-width: 800px;
+        height: 40vh;
+        margin: auto;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        p {
+            padding: 1rem;
+        }
+    }
+}
+
+
+
+@media (max-width: 400px) {
+    .gallery {
+        padding: 1rem 1rem 3rem 3rem;
+
+    }
+  }
