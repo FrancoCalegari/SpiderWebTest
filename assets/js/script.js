@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         document.querySelector(".hero-image.center").style.transform = "scale(1)";
         document.querySelector(".hero-image.center").style.opacity = "1";
-    }, 3200);
+    }, 3300);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
