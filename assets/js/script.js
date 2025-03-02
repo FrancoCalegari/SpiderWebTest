@@ -3,16 +3,50 @@ window.addEventListener('load', () => {
     const mainContent = document.getElementById('main-content');
 
     setTimeout(() => {
-        animationContainer.style.animation = 'blurAndFadeOut 1s forwards';
-    }, 3000); // Espera 2 segundos (2000ms) y luego aplica el blur y fade out
+        animationContainer.style.animation = 'blurAndFadeOut 2s forwards';
+    }, 2500); // Espera 2 segundos (2000ms) y luego aplica el blur y fade out
 
     setTimeout(() => {
         animationContainer.style.display = 'none';
         mainContent.style.display = 'block';
         mainContent.style.opacity = 1;
-    }, 4000); // Espera 1 segundo más para asegurarse de que la animación termine antes de mostrar el contenido principal
+    }, 3000); // Espera 1 segundo más para asegurarse de que la animación termine antes de mostrar el contenido principal
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Función para detectar si es un dispositivo móvil
+    function isMobileDevice() {
+        return window.matchMedia("(orientation: portrait)").matches || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    }
+
+    // Cambiar las imágenes si es un dispositivo móvil
+    if (isMobileDevice()) {
+        document.querySelector(".hero-image.left").src = "./assets/img/recurses/capturasTEst/mobile_img2.png";
+        document.querySelector(".hero-image.right").src = "./assets/img/recurses/capturasTEst/mobile_img3.png";
+        document.querySelector(".hero-image.center").src = "./assets/img/logo.svg";
+    }
+
+    setTimeout(() => {
+        let height = 0;
+        let interval = setInterval(() => {
+            if (height >= 30) {
+                clearInterval(interval);
+            } else {
+                height += 1;
+                document.querySelector(".hero-images").style.height = height + "vh";
+            }
+        }, 10);
+
+        document.querySelector(".hero-image.left").style.transform = "translate(-100%, 20%)";
+        document.querySelector(".hero-image.left").style.opacity = "1";
+        
+        document.querySelector(".hero-image.right").style.transform = "translate(100%, 20%)";
+        document.querySelector(".hero-image.right").style.opacity = "1";
+        
+        document.querySelector(".hero-image.center").style.transform = "scale(1)";
+        document.querySelector(".hero-image.center").style.opacity = "1";
+    }, 3500);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const gallery = document.querySelector('.gallery');
