@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa con Círculos</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .map-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            margin: auto;
+            background: url('mapa.jpg') no-repeat center center;
+            background-size: cover;
+        }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 0, 0, 0.7);
+            background-color: rgba(255, 0, 0, 0.2);
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+        .controls {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button onclick="fixCircles()">Fijar círculos</button>
+        <button onclick="unfixCircles()">Desanclar círculos</button>
+        <button onclick="resetCircles()">Restart</button>
+    </div>
+    
+    <div class="map-container" id="map">
+        <div class="circle" id="circle1"></div>
+        <div class="circle" id="circle2"></div>
+        <div class="circle" id="circle3"></div>
+    </div>
+
+    <script>
+        let circles = [
+            { id: "circle1", size: 500, top: 200, left: 250 },
+            { id: "circle2", size: 650, top: 150, left: 200 },
+            { id: "circle3", size: 900, top: 50, left: 100 }
+        ];
+        let fixed = false;
+
+        function placeCircles() {
+            circles.forEach(circle => {
+                let el = document.getElementById(circle.id);
+                el.style.width = circle.size + "px";
+                el.style.height = circle.size + "px";
+                el.style.top = circle.top + "px";
+                el.style.left = circle.left + "px";
+            });
+        }
+
+        function fixCircles() {
+            fixed = true;
+            document.querySelectorAll('.circle').forEach(el => el.style.pointerEvents = "none");
+        }
+
+        function unfixCircles() {
+            fixed = false;
+            document.querySelectorAll('.circle').forEach(el => el.style.pointerEvents = "auto");
+        }
+
+        function resetCircles() {
+            placeCircles();
+            unfixCircles();
+        }
+
+        placeCircles();
+    </script>
+</body>
+</html>

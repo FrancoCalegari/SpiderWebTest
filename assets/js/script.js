@@ -1,3 +1,19 @@
+window.addEventListener('load', () => {
+    const animationContainer = document.querySelector('.animation-container');
+    const mainContent = document.getElementById('main-content');
+
+    setTimeout(() => {
+        animationContainer.style.animation = 'blurAndFadeOut 1s forwards';
+    }, 3000); // Espera 2 segundos (2000ms) y luego aplica el blur y fade out
+
+    setTimeout(() => {
+        animationContainer.style.display = 'none';
+        mainContent.style.display = 'block';
+        mainContent.style.opacity = 1;
+    }, 4000); // Espera 1 segundo más para asegurarse de que la animación termine antes de mostrar el contenido principal
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const gallery = document.querySelector('.gallery');
     const cards = document.querySelectorAll('.card');
@@ -38,17 +54,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-window.addEventListener('load', () => {
-    const animationContainer = document.querySelector('.animation-container');
-    const mainContent = document.getElementById('main-content');
-
-    setTimeout(() => {
-        animationContainer.style.animation = 'blurAndFadeOut 1s forwards';
-    }, 3000); // Espera 2 segundos (2000ms) y luego aplica el blur y fade out
-
-    setTimeout(() => {
-        animationContainer.style.display = 'none';
-        mainContent.style.display = 'block';
-        mainContent.style.opacity = 1;
-    }, 4000); // Espera 1 segundo más para asegurarse de que la animación termine antes de mostrar el contenido principal
-});
