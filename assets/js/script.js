@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const rightImage = document.querySelector(".hero-image.right");
         const centerImage = document.querySelector(".hero-image.center");
 
-
+        
 
         if (!leftImage || !rightImage || !centerImage) return;
 
