@@ -56,6 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const rightImage = document.querySelector(".hero-image.right");
         const centerImage = document.querySelector(".hero-image.center");
 
+
+
         if (!leftImage || !rightImage || !centerImage) return;
 
         if (isMobileDevice()) {
@@ -63,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
             leftImage.style.transform = "translate(-100%, 20%)";
             rightImage.style.transform = "translate(100%, 20%)";
             loadHeroImages(); // Ejecutar la carga de imágenes para móviles
-        } else {
+        } if (isPcDevice()) {
             console.log("Modo escritorio activado");
             leftImage.style.transform = "translate(-100%, 0%)";
             rightImage.style.transform = "translate(100%, 0%)";
