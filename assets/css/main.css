@@ -2,10 +2,12 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    
 }
 
 html {
     scroll-behavior: smooth;
+    background-color: #ff6e61;
 }
 
 body {
@@ -16,12 +18,15 @@ body {
     color: #333;
 }
 header.hero {
-    background: #ffcccb;
-    color: #333;
+    background-color: #ff6e61;
+    background-image: radial-gradient(#ffffff 0.8px, #ff6e61 0.8px);
+    background-size: 16px 16px;
+    color: #000;
     text-align: center;
-    padding: 50px 0;
+    padding: 25px 0;
     position: relative;
     overflow: hidden;
+    font-size: 1rem;
 }
 
 header.hero .hero-content {
@@ -38,7 +43,7 @@ header.hero .hero-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
+    margin-top: 25px;
     
 }
 
@@ -69,12 +74,14 @@ header.hero .hero-content {
 
 
 header.site-header {
+    background-color: #ff6e61;
+    background-image: radial-gradient(#ffffff 0.8px, #ff6e61 0.8px);
+    background-size: 16px 16px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 20px;
-    background-color: #ff6f61;
-    color: white;
+    color: #000;
     flex-wrap: wrap;
 }
 
@@ -87,8 +94,8 @@ header.site-header {
     flex-wrap: wrap;
 }
 
-.logoContainer img{
-    filter: invert(100%) sepia(71%) saturate(220%) hue-rotate(95deg) brightness(109%) contrast(96%);
+.logoContainer img {
+    filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
     height: 3rem;
     margin-right: 0.5rem;
 }
@@ -100,7 +107,7 @@ nav {
 }
 
 nav a {
-    color: white;
+    color: #000;
     text-decoration: none;
     font-weight: bold;
 }
@@ -184,50 +191,7 @@ section h2 {
 }
 
 /*sponosrs*/
-#contact {
-    display: grid;
-    grid-template-columns: auto;
-}
 
-
-
-.spiderweb-card {
-    max-width: 600px; /* Tarjeta más grande para SpiderWeb */
-    background-color: #ffcccb; /* Color distinto si lo deseas */
-}
-
-.contact-img {
-    border-radius: 10px;
-    object-fit: cover;
-}
-
-.contact-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.contact-buttons button {
-    padding: 10px;
-    background-color: #ff6f61;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.contact-buttons button:hover {
-    background-color: #e0554f; /* Cambia el tono al pasar el ratón */
-}
-
-.contactcardcontainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
 
 
 .clients {
@@ -274,11 +238,10 @@ section h2 {
     font-size: 1.2em;
     color: #ffd700; /* Color dorado para las estrellas */
 }
-
 .projects {
-    padding: 50px 0px;
     text-align: center;
     background-color: #fff;
+    margin-top: 2rem;
 }
 
 .projects h2 {
@@ -287,32 +250,57 @@ section h2 {
 }
 
 .gallery {
+    height: 30rem;
     display: flex;
-    overflow: hidden;
+    overflow-x: auto; /* Cambiado a auto para permitir desplazamiento horizontal */
     width: 100%;
     position: relative;
     gap: 10px;
-    padding: 1rem 1rem 3rem 8rem;
-    margin: 0px 22px -21px -20px;
+    padding-left: 2rem;
+    margin: 0 auto; /* Centrar la galería */
+    scroll-snap-type: x mandatory; /* Para un desplazamiento suave y preciso */
+    scroll-behavior: smooth; /* Desplazamiento suave */
+    align-items: center;
+    padding: 2rem;
 }
 
-/* Estilos existentes */
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    .gallery {
+        padding: 1rem 0.5rem; /* Reducir el padding en móviles */
+        margin: none;
+    }
+
+    .card {
+        min-width: 250px; /* Reducir el ancho mínimo para móviles */
+        max-width: 250px;
+    }
+
+    .projects {
+        text-align: center;
+        padding: 0;
+        margin: none;
+    }
+}
 
 .card {
+    display: flex;
     border: 1px solid #ff6f61;
     padding: 20px;
     border-radius: 10px;
     min-width: 300px;
     max-width: 300px;
+    align-items: center;
     text-align: center;
     background-color: #ffe5e2;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.5s, box-shadow 0.5s;
     flex-shrink: 0;
+    scroll-snap-align: start; /* Alinear al inicio del contenedor */
+    height: 90%; /* Ajustar la altura de las tarjetas */
 }
 
 .gallery .card img {
     width: 100%;
-    height: auto;
     border-radius: 10px;
     margin-bottom: 10px;
 }
@@ -327,11 +315,21 @@ section h2 {
 }
 
 .card.focused {
-    transform: scale(1.05);
+    transform: scale(1.1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     border-color: #ff6f61;
+    margin: 1rem;
 }
 
+/* Ocultar la barra de desplazamiento en algunos navegadores */
+.gallery::-webkit-scrollbar {
+    display: none; /* Chrome, Safari y Opera */
+}
+
+.gallery {
+    -ms-overflow-style: none; /* IE y Edge */
+    scrollbar-width: none; /* Firefox */
+}
 
 /* Servicios Section */
 .services-section {
@@ -431,6 +429,16 @@ section h2 {
 }
 
 /* Contacto Section */
+
+
+
+.contactcardcontainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
 .contact {
     padding: 50px 20px;
     text-align: center;
@@ -451,6 +459,7 @@ section h2 {
     text-align: center;
     background-color: #ffe5e2;
     transition: transform 0.3s, box-shadow 0.3s;
+    height: fit-content;
 }
 
 .contactcard:hover {
@@ -468,7 +477,7 @@ section h2 {
 
 .imgcontactconainer {
     width: 100%;
-    height: 25vh;
+    height: 15rem;
     display: flex;
     justify-content: center;
     align-items: center;

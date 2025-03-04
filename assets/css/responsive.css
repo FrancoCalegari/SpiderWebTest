@@ -1,12 +1,6 @@
 
-
-/* Para pantallas de hasta 768px (tablets y móviles) */
-@media screen and (max-width: 768px) {
-
-}
-
 /* Para pantallas de hasta 480px (móviles) */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
     .site-header nav{
         padding-top: 1rem;
         justify-content: center;
@@ -14,7 +8,7 @@
     }
     header.hero .hero-content {
         max-width: 800px;
-        height: 40vh;
+        height: 32vh;
         margin: auto;
         align-items: center;
         justify-content: center;
@@ -24,6 +18,7 @@
 
         p {
             padding: 1rem;
+            font-size: 1rem;
         }
     }
 
@@ -33,8 +28,6 @@
         opacity: 0;
         position: absolute;
         transition: all 1.5s ease-in-out;
-        
-        
     }
 }
 
