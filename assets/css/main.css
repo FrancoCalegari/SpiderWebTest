@@ -5,9 +5,17 @@
     
 }
 
+:root {
+    --primary-color: #a51918;
+    --secondary-color: #333;
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --accent-color: #a51918;
+}
+
 html {
     scroll-behavior: smooth;
-    background-color: #ff6e61;
+    background-color: var(--accent-color);
 }
 
 body {
@@ -18,10 +26,10 @@ body {
     color: #333;
 }
 header.hero {
-    background-color: #ff6e61;
-    background-image: radial-gradient(#ffffff 0.8px, #ff6e61 0.8px);
+    background-color: var(--accent-color);
+    background-image: radial-gradient(#ffffff 0.8px, var(--accent-color) 0.8px);
     background-size: 16px 16px;
-    color: #000;
+    color: #fff;
     text-align: center;
     padding: 25px 0;
     position: relative;
@@ -74,14 +82,14 @@ header.hero .hero-content {
 
 
 header.site-header {
-    background-color: #ff6e61;
-    background-image: radial-gradient(#ffffff 0.8px, #ff6e61 0.8px);
+    background-color: var(--accent-color);
+    background-image: radial-gradient(#ffffff 0.8px, var(--accent-color) 0.8px);
     background-size: 16px 16px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 20px;
-    color: #000;
+    color: #fff;
     flex-wrap: wrap;
 }
 
@@ -107,7 +115,7 @@ nav {
 }
 
 nav a {
-    color: #000;
+    color: #fff;
     text-decoration: none;
     font-weight: bold;
 }
@@ -119,7 +127,7 @@ section {
 
 section h2 {
     margin-bottom: 20px;
-    color: #ff6f61;
+    color: var(--accent-color);
 }
 
 
@@ -202,7 +210,7 @@ section h2 {
 
 .clients h2 {
     margin-bottom: 20px;
-    color: #ff6f61;
+    color: var(--accent-color);
 }
 
 .testimonials {
@@ -213,7 +221,7 @@ section h2 {
 }
 
 .card.cliente {
-    border: 1px solid #ff6f61;
+    border: 1px solid var(--accent-color);
     padding: 20px;
     border-radius: 10px;
     max-width: 300px;
@@ -246,7 +254,7 @@ section h2 {
 
 .projects h2 {
     margin-bottom: 20px;
-    color: #ff6f61;
+    color: var(--accent-color);
 }
 
 .gallery {
@@ -285,7 +293,7 @@ section h2 {
 
 .card {
     display: flex;
-    border: 1px solid #ff6f61;
+    border: 1px solid var(--accent-color);
     padding: 20px;
     border-radius: 10px;
     min-width: 300px;
@@ -317,7 +325,7 @@ section h2 {
 .card.focused {
     transform: scale(1.1);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border-color: #ff6f61;
+    border-color: var(--accent-color);
     margin: 1rem;
 }
 
@@ -340,7 +348,7 @@ section h2 {
 
 .services-section h2 {
     margin-bottom: 20px;
-    color: #ff6f61;
+    color: var(--accent-color);
 }
 
 .services-carousel {
@@ -355,7 +363,7 @@ section h2 {
 }
 
 .service-card {
-    border: 1px solid #ff6f61;
+    border: 1px solid var(--accent-color);
     padding: 20px;
     border-radius: 10px;
     min-width: 300px;
@@ -369,7 +377,7 @@ section h2 {
 .service-card:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border-color: #ff6f61;
+    border-color: var(--accent-color);
 }
 
 .services-carousel .service-card img {
@@ -389,7 +397,7 @@ section h2 {
 
 .satisfied-clients h2 {
     margin-bottom: 20px;
-    color: #ff6f61;
+    color: var(--accent-color);
 }
 
 .testimonials-carousel {
@@ -400,7 +408,7 @@ section h2 {
 }
 
 .testimonial-card {
-    border: 1px solid #ff6f61;
+    border: 1px solid var(--accent-color);
     padding: 20px;
     border-radius: 10px;
     max-width: 300px;
@@ -412,7 +420,7 @@ section h2 {
 .testimonial-card:hover {
     transform: scale(1.05);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border-color: #ff6f61;
+    border-color: var(--accent-color);
 }
 
 .profile-pic {
@@ -447,12 +455,12 @@ section h2 {
 
 .contact h2 {
     margin-bottom: 20px;
-    color: #ff6f61;
+    color: var(--accent-color);
 }
 
 
 .contactcard {
-    border: 1px solid #ff6f61;
+    border: 1px solid var(--accent-color);
     padding: 20px;
     border-radius: 10px;
     max-width: 300px;
@@ -483,7 +491,7 @@ section h2 {
     align-items: center;
     overflow: hidden;
     margin-bottom: 10px;
-    background-color: red;
+    background-color: var(--accent-color);
     border-radius: 10px;
 }
 
@@ -501,8 +509,8 @@ section h2 {
 
 .contact-buttons button {
     padding: 10px;
-    background-color: #ff6f61;
-    color: white;
+    background-color: var(--accent-color);
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -596,8 +604,8 @@ section h2 {
 /*Footer*/
 
 .site-footer {
-    background-color: #ff6f61;
-    color: white;
+    background-color: var(--accent-color);
+    color: #fff;
     padding: 20px 0;
     text-align: center;
     font-size: large;
