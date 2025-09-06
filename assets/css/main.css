@@ -5,6 +5,14 @@
     
 }
 
+
+
+@font-face {
+    font-family: 'GothamBlackItalic';
+    src: url(/assets/font/GOTHAM-BLACKITALIC.TTF) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 :root {
     --primary-color: #a51918;
     --secondary-color: #333;
@@ -42,6 +50,13 @@ header.hero .hero-content {
     margin: auto;
     position: relative;
     z-index: 2;
+    
+}
+
+header.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-family: 'GothamBlackItalic';
 }
 
 .hero-images {
@@ -100,6 +115,7 @@ header.site-header {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    font-family: 'GothamBlackItalic';
 }
 
 .logoContainer img {
@@ -112,6 +128,7 @@ nav {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    font-family: 'GothamBlackItalic';
 }
 
 nav a {
@@ -145,6 +162,12 @@ section h2 {
     overflow: hidden;
     padding: 20px;
     background: #f8f8f8;
+}
+
+.sponsors h2 {
+    margin-bottom: 20px;
+    color: var(--accent-color);
+    font-family: 'GothamBlackItalic';
 }
 
 /* Contenedor del carrusel */
@@ -193,10 +216,7 @@ section h2 {
     }
 }
 
-/* Opcional: Pausar la animación al hacer hover */
-.sponsor-track:hover {
-    animation-play-state: paused;
-}
+
 
 /*sponosrs*/
 
@@ -255,6 +275,7 @@ section h2 {
 .projects h2 {
     margin-bottom: 20px;
     color: var(--accent-color);
+    font-family: 'GothamBlackItalic';
 }
 
 .gallery {
@@ -349,6 +370,7 @@ section h2 {
 .services-section h2 {
     margin-bottom: 20px;
     color: var(--accent-color);
+    font-family: 'GothamBlackItalic';
 }
 
 .services-carousel {
@@ -456,6 +478,7 @@ section h2 {
 .contact h2 {
     margin-bottom: 20px;
     color: var(--accent-color);
+    font-family: 'GothamBlackItalic';
 }
 
 

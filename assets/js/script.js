@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isMobileDevice()) {
             console.log("Cargando imágenes para móvil...");
             document.querySelector(".hero-image.left").src = "./assets/img/recurses/capturasTEst/mobile_img2.png";
-            document.querySelector(".hero-image.right").src = "./assets/img/recurses/capturasTEst/mobile_img3.png";
+            document.querySelector(".hero-image.right").src = "./assets/img/recurses/capturasTEst/TartasOdiTelefono.png";
             document.querySelector(".hero-image.center").src = "./assets/img/logo.svg";
         }
     }
@@ -163,7 +163,4 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(scrollTimer);
         scrollTimer = setInterval(scrollGallery, scrollInterval);
     });
-
-    gallery.addEventListener('mouseenter', () => clearInterval(scrollTimer));
-    gallery.addEventListener('mouseleave', () => scrollTimer = setInterval(scrollGallery, scrollInterval));
 });
