@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isPcDevice()) {
             console.log("Cargando imágenes para PC...");
             document.querySelector(".hero-image.left").src = "./assets/img/recurses/capturasTEst/img2.png";
-            document.querySelector(".hero-image.right").src = "./assets/img/recurses/capturasTEst/img3.png";
+            document.querySelector(".hero-image.right").src = "./assets/img/recurses/capturasTEst/WebTartasODI.png";
             document.querySelector(".hero-image.center").src = "./assets/img/logo.svg";
         }
     }
