@@ -9,7 +9,7 @@
 
 @font-face {
     font-family: 'GothamBlackItalic';
-    src: url(/assets/font/GOTHAM-BLACKITALIC.TTF) format('truetype');
+    src: url(../../assets/font/GOTHAM-BLACKITALIC.TTF) format('truetype');
     font-weight: normal;
     font-style: normal;
 }
