@@ -1,27 +1,28 @@
 {
-  "name": "spiderwebtest",
-  "version": "1.0.0",
-  "description": "Web principal del emprendimiento **SpiderWeb**, especializada en diseño web, marketing digital, administración y creación de software para empresas.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/FrancoCalegari/SpiderWebTest.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/FrancoCalegari/SpiderWebTest/issues"
-  },
-  "homepage": "https://github.com/FrancoCalegari/SpiderWebTest#readme",
-  "dependencies": {
-    "body-parser": "^2.2.1",
-    "cors": "^2.8.5",
-    "express": "^5.2.1",
-    "express-session": "^1.18.2",
-    "multer": "^2.0.2"
-  }
+	"name": "spiderwebtest",
+	"version": "1.0.0",
+	"description": "Web principal del emprendimiento **SpiderWeb**, especializada en diseño web, marketing digital, administración y creación de software para empresas.",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/FrancoCalegari/SpiderWebTest.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/FrancoCalegari/SpiderWebTest/issues"
+	},
+	"homepage": "https://github.com/FrancoCalegari/SpiderWebTest#readme",
+	"dependencies": {
+		"body-parser": "^2.2.1",
+		"cors": "^2.8.5",
+		"express": "^5.2.1",
+		"express-session": "^1.18.2",
+		"multer": "^2.0.2"
+	}
 }
