@@ -8,12 +8,12 @@ const multer = require("multer");
 
 const app = express();
 const PORT = 3000;
-const DATA_FILE = path.join(__dirname, "assets", "data", "data.json");
+const DATA_FILE = path.join(__dirname, "public", "assets", "data", "data.json");
 
 // --- Multer Configuration ---
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, "assets/img/uploads/");
+		cb(null, "public/assets/img/uploads/");
 	},
 	filename: function (req, file, cb) {
 		const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -56,7 +56,10 @@ function isAuthenticated(req, res, next) {
 app.use("/admin", isAuthenticated);
 
 // Static files
-app.use(express.static(__dirname));
+// Serve 'public' folder as root (so /assets/... works)
+app.use(express.static(path.join(__dirname, "public")));
+// Serve 'admin' folder specifically for admin scripts/css referenced as /admin/...
+app.use("/admin", express.static(path.join(__dirname, "admin")));
 
 // --- Helpers ---
 function readData() {
