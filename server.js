@@ -99,6 +99,11 @@ app.get("/admin", (req, res) => {
 	res.sendFile(path.join(__dirname, "admin", "index.html"));
 });
 
+// Explicit Root Route
+app.get("/", (req, res) => {
+	res.sendFile(path.join(__dirname, "index.html"));
+});
+
 // API Middleware for Auth on /api
 app.use("/api", (req, res, next) => {
 	if (req.method !== "GET") {
