@@ -725,7 +725,6 @@ section h2 {
 	width: 90%;
 	height: 90%;
 	margin: 2% auto;
-	background: #fff;
 	border-radius: 10px;
 	overflow: hidden;
 }
@@ -747,10 +746,11 @@ section h2 {
 
 .design-image-col {
 	flex: 2;
-	background: #000;
+	background: #ffffff60;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	backdrop-filter: blur(10px);
 }
 
 .design-image-col img {

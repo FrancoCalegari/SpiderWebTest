@@ -189,6 +189,30 @@ app.post("/api/sponsors", upload.single("image"), (req, res) => {
 	res.json(newSponsor);
 });
 
+app.put("/api/sponsors/:id", upload.single("image"), (req, res) => {
+	const data = readData();
+	const { id } = req.params;
+	if (!data.sponsors) data.sponsors = [];
+
+	const index = data.sponsors.findIndex((s) => s.id === id);
+	if (index !== -1) {
+		const updatedSponsor = {
+			...data.sponsors[index],
+			...(req.body || {}),
+		};
+
+		if (req.file) {
+			updatedSponsor.image = "./assets/img/uploads/" + req.file.filename;
+		}
+
+		data.sponsors[index] = updatedSponsor;
+		writeData(data);
+		res.json(data.sponsors[index]);
+	} else {
+		res.status(404).json({ error: "Sponsor not found" });
+	}
+});
+
 app.delete("/api/sponsors/:id", (req, res) => {
 	const data = readData();
 	const { id } = req.params;

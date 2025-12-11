@@ -74,9 +74,9 @@
 			}
 			.modal-content {
 				background: white;
-				margin: 10% auto;
+				margin: 3% auto;
 				padding: 20px;
-				width: 500px;
+				max-width: 500px;
 				border-radius: 8px;
 			}
 			.close {
@@ -231,16 +231,14 @@
 					<input
 						type="text"
 						id="designClientName"
-						placeholder="Nombre del Cliente"
-						required
+						placeholder="Nombre del Cliente (Opcional)"
 					/>
-					<label for="designClientLogo">Logo del Cliente:</label>
+					<label for="designClientLogo">Logo del Cliente (Opcional):</label>
 					<input type="file" id="designClientLogo" accept="image/*" />
 					<input
 						type="text"
 						id="designLink"
-						placeholder="Link de Publicación"
-						required
+						placeholder="Link de Publicación (Opcional)"
 					/>
 
 					<button type="submit" class="btn btn-primary">Guardar</button>

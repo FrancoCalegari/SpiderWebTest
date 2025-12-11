@@ -68,13 +68,39 @@
   ],
   "designs": [
     {
-      "title": "Test",
-      "description": "lorem esto es una prueba",
-      "clientName": "Franco Calegari",
-      "link": "#",
+      "title": "Remera Solid Snake",
+      "description": "Este es un Diseño de Prueba del personaje Solid Snake del videojuego Metal Gear Solid",
+      "clientName": "Gabo",
+      "link": "https://portafolio-gabo-dev.vercel.app/?utm_source=ig&utm_medium=social&utm_content=link_in_bio",
       "id": "1765468202482",
-      "image": "./assets/img/uploads/1765468202406-973934340.png",
-      "clientLogo": "./assets/img/uploads/1765468202472-59299682.png"
+      "image": "./assets/img/uploads/1765476638150-729739757.jpg",
+      "clientLogo": "./assets/img/uploads/1765476638166-365089764.jpg"
+    },
+    {
+      "title": "Promo 2x1 Vivisport",
+      "description": "En esta imagen se busco que sea atractiva para el usuario y se entere de lo importante la promocion 2x1 del emprendimiento Vivisport",
+      "clientName": "Vivisport",
+      "link": "https://www.instagram.com/p/DG_7hq4pEIb/?hl=es",
+      "id": "1765475989682",
+      "image": "./assets/img/uploads/1765477189207-724888130.jpg",
+      "clientLogo": "./assets/img/uploads/1765477543388-164878789.jpg"
+    },
+    {
+      "title": "Spider Web Tarjeta",
+      "description": "Diseño de tarjeta para presentación donde se utiliza para repartir a clientes de forma física.",
+      "clientName": "",
+      "link": "",
+      "id": "1765477668382",
+      "image": "./assets/img/uploads/1765477668364-988770035.png"
+    },
+    {
+      "title": "Portada Presentacion",
+      "description": "Se uso en la publicidad para Astrotoons un torneo recreativo donde participantes compiten en juegos por premios",
+      "clientName": "Lag Esports",
+      "link": "https://www.instagram.com/p/DBKeYwGuswh/?img_index=1",
+      "id": "1765477902504",
+      "image": "./assets/img/uploads/1765477902479-62461239.jpg",
+      "clientLogo": "./assets/img/uploads/1765477902492-646961730.png"
     }
   ]
 }
