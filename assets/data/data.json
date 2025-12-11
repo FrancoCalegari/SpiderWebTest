@@ -1,0 +1,80 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "title": "Demo Tartas ODI",
+      "description": "Proyecto en base a un menu pdf siguiendo el diseño, adaptado a cualquier pantalla.",
+      "image": "./assets/img/recurses/capturasTEst/WebTartasODI.png",
+      "url": "https://tartas-odi.vercel.app/"
+    },
+    {
+      "id": "2",
+      "title": "Demo Web DonJuan",
+      "description": "En esta ocacion agregamos un sistema de compra online que crea un menu y se manda a whatsapp.",
+      "image": "./assets/img/recurses/capturasTEst/img2.png",
+      "url": "https://francocalegari.github.io/DonJuanDemo/"
+    },
+    {
+      "id": "3",
+      "title": "SuperTec Web",
+      "description": "Una Landing Page con tienda incorporada para el servicio tecnico Super Tec.",
+      "image": "./assets/img/recurses/capturasTEst/WebSuperTec.png",
+      "url": "https://francocalegari.github.io/SupertecWeb/"
+    },
+    {
+      "id": "4",
+      "title": "Menu Los 3 Hermanos",
+      "description": "Un menu para el restaurante los 3 Hermanos.",
+      "image": "./assets/img/recurses/capturasTEst/Web3Hermanos.png",
+      "url": "https://restaurante-3-hermanos.vercel.app/"
+    }
+  ],
+  "sponsors": [
+    {
+      "id": "101",
+      "name": "Sponsor 1",
+      "image": "./assets/img/recurses/Sponsors/LogoSuperTec.png"
+    },
+    {
+      "id": "102",
+      "name": "Sponsor 2",
+      "image": "./assets/img/recurses/Sponsors/LogoODITartas.png"
+    },
+    {
+      "id": "103",
+      "name": "Sponsor 3",
+      "image": "./assets/img/recurses/Sponsors/LogoVivisSports.png"
+    },
+    {
+      "id": "104",
+      "name": "Sponsor 4",
+      "image": "./assets/img/recurses/Sponsors/3HermanosLogo.jpg"
+    },
+    {
+      "id": "105",
+      "name": "Sponsor 5",
+      "image": "./assets/img/recurses/Sponsors/LogoDonBosco.png"
+    },
+    {
+      "id": "106",
+      "name": "Sponsor 6",
+      "image": "./assets/img/recurses/Sponsors/LogoLAG.png"
+    },
+    {
+      "id": "107",
+      "name": "Sponsor 7",
+      "image": "./assets/img/recurses/Sponsors/LogoYanino.png"
+    }
+  ],
+  "designs": [
+    {
+      "title": "Test",
+      "description": "lorem esto es una prueba",
+      "clientName": "Franco Calegari",
+      "link": "#",
+      "id": "1765468202482",
+      "image": "./assets/img/uploads/1765468202406-973934340.png",
+      "clientLogo": "./assets/img/uploads/1765468202472-59299682.png"
+    }
+  ]
+}

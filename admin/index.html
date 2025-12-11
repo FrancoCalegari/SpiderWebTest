@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>SpiderWeb - Admin</title>
+		<link
+			href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+			rel="stylesheet"
+		/>
+		<style>
+			body {
+				font-family: "Roboto", sans-serif;
+				background: #f4f4f4;
+				margin: 0;
+				padding: 20px;
+			}
+			.container {
+				max-width: 1000px;
+				margin: auto;
+				background: white;
+				padding: 20px;
+				border-radius: 8px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			}
+			h1,
+			h2 {
+				color: #333;
+			}
+			.section {
+				margin-bottom: 40px;
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-top: 20px;
+			}
+			th,
+			td {
+				padding: 12px;
+				border-bottom: 1px solid #ddd;
+				text-align: left;
+			}
+			th {
+				background-color: #f8f9fa;
+			}
+			.btn {
+				padding: 8px 12px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+				color: white;
+				margin-right: 5px;
+			}
+			.btn-primary {
+				background-color: #007bff;
+			}
+			.btn-danger {
+				background-color: #dc3545;
+			}
+			.btn-warning {
+				background-color: #ffc107;
+				color: black;
+			}
+			.modal {
+				display: none;
+				position: fixed;
+				z-index: 1000;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.5);
+			}
+			.modal-content {
+				background: white;
+				margin: 10% auto;
+				padding: 20px;
+				width: 500px;
+				border-radius: 8px;
+			}
+			.close {
+				float: right;
+				font-size: 28px;
+				font-weight: bold;
+				cursor: pointer;
+			}
+			form input,
+			form textarea {
+				width: 100%;
+				padding: 8px;
+				margin: 10px 0;
+				border: 1px solid #ddd;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+			.btn-add {
+				float: right;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>
+				Admin Dashboard
+				<button
+					class="btn btn-danger"
+					onclick="window.location.href='/logout'"
+					style="float: right; font-size: 14px"
+				>
+					Cerrar Sesión
+				</button>
+			</h1>
+
+			<!-- Projects Section -->
+			<div class="section">
+				<h2>
+					Proyectos
+					<button
+						class="btn btn-primary btn-add"
+						onclick="openModal('projectModal')"
+					>
+						Nuevo Proyecto
+					</button>
+				</h2>
+				<table id="projectsTable">
+					<thead>
+						<tr>
+							<th>Imagen</th>
+							<th>Título</th>
+							<th>Descripción</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<!-- Designs Section -->
+			<div class="section">
+				<h2>
+					Diseños
+					<button
+						class="btn btn-primary btn-add"
+						onclick="openModal('designModal')"
+					>
+						Nuevo Diseño
+					</button>
+				</h2>
+				<table id="designsTable">
+					<thead>
+						<tr>
+							<th>Imagen</th>
+							<th>Título</th>
+							<th>Cliente</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+
+			<!-- Sponsors Section -->
+			<div class="section">
+				<h2>
+					Sponsors
+					<button
+						class="btn btn-primary btn-add"
+						onclick="openModal('sponsorModal')"
+					>
+						Nuevo Sponsor
+					</button>
+				</h2>
+				<table id="sponsorsTable">
+					<thead>
+						<tr>
+							<th>Logo</th>
+							<th>Nombre</th>
+							<th>Sitio Web</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+
+		<!-- Project Modal (Unchanged) -->
+		<div id="projectModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeModal('projectModal')">&times;</span>
+				<h2 id="projectModalTitle">Agregar Proyecto</h2>
+				<form id="projectForm">
+					<input type="hidden" id="projectId" />
+					<input type="text" id="projectTitle" placeholder="Título" required />
+					<textarea
+						id="projectDesc"
+						placeholder="Descripción"
+						required
+					></textarea>
+					<label for="projectImage">Imagen:</label>
+					<input type="file" id="projectImage" accept="image/*" />
+					<input
+						type="text"
+						id="projectUrl"
+						placeholder="URL del Proyecto"
+						required
+					/>
+					<button type="submit" class="btn btn-primary">Guardar</button>
+				</form>
+			</div>
+		</div>
+
+		<!-- Design Modal -->
+		<div id="designModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeModal('designModal')">&times;</span>
+				<h2 id="designModalTitle">Agregar Diseño</h2>
+				<form id="designForm">
+					<input type="hidden" id="designId" />
+					<input type="text" id="designTitle" placeholder="Título" required />
+					<textarea
+						id="designDesc"
+						placeholder="Descripción"
+						required
+					></textarea>
+					<label for="designImage">Imagen Principal:</label>
+					<input type="file" id="designImage" accept="image/*" />
+
+					<h3>Cliente</h3>
+					<input
+						type="text"
+						id="designClientName"
+						placeholder="Nombre del Cliente"
+						required
+					/>
+					<label for="designClientLogo">Logo del Cliente:</label>
+					<input type="file" id="designClientLogo" accept="image/*" />
+					<input
+						type="text"
+						id="designLink"
+						placeholder="Link de Publicación"
+						required
+					/>
+
+					<button type="submit" class="btn btn-primary">Guardar</button>
+				</form>
+			</div>
+		</div>
+
+		<!-- Sponsor Modal -->
+		<div id="sponsorModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeModal('sponsorModal')">&times;</span>
+				<h2 id="sponsorModalTitle">Agregar Sponsor</h2>
+				<form id="sponsorForm">
+					<input type="hidden" id="sponsorId" />
+					<input type="text" id="sponsorName" placeholder="Nombre" required />
+					<input
+						type="text"
+						id="sponsorUrl"
+						placeholder="Sitio Web (Opcional)"
+					/>
+					<label for="sponsorImage">Logo:</label>
+					<input type="file" id="sponsorImage" accept="image/*" />
+					<button type="submit" class="btn btn-primary">Guardar</button>
+				</form>
+			</div>
+		</div>
+
+		<script src="/admin/js/admin.js"></script>
+	</body>
+</html>
