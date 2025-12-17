@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			}, 10);
 		}
 		applyHeroImageAnimation();
-	}, 4800); // Synced with new intro timing
+	}, 3800); // Synced with new intro timing
 
 	window.addEventListener("resize", applyHeroImageAnimation);
 
