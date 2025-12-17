@@ -9,7 +9,7 @@
     },
     {
       "id": "2",
-      "title": "Demo Web DonJuan",
+      "title": "Demo Web Delivery",
       "description": "En esta ocacion agregamos un sistema de compra online que crea un menu y se manda a whatsapp.",
       "image": "./assets/img/recurses/capturasTEst/img2.png",
       "url": "https://francocalegari.github.io/DonJuanDemo/"
@@ -18,8 +18,8 @@
       "id": "3",
       "title": "SuperTec Web",
       "description": "Una Landing Page con tienda incorporada para el servicio tecnico Super Tec.",
-      "image": "./assets/img/recurses/capturasTEst/WebSuperTec.png",
-      "url": "https://francocalegari.github.io/SupertecWeb/"
+      "image": "./assets/img/uploads/1766006921266-444161492.png",
+      "url": "https://www.supertecmza.com.ar/"
     },
     {
       "id": "4",
@@ -29,11 +29,18 @@
       "url": "https://restaurante-3-hermanos.vercel.app/"
     },
     {
-      "title": "TECHNO.MDZ",
+      "title": "MendoTecno",
       "description": "una demo de una web para fiestas",
       "url": "https://tecnodemo.vercel.app/",
       "id": "1766004497665",
       "image": "./assets/img/uploads/1766004497658-817714940.png"
+    },
+    {
+      "title": "YaninoWeb Demo",
+      "description": "esta es una web portfolio para un BeatMaker",
+      "url": "https://francocalegari.github.io/YaninoWeb/",
+      "id": "1766006806244",
+      "image": "./assets/img/uploads/1766006806227-756879090.png"
     }
   ],
   "sponsors": [
