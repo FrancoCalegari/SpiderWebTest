@@ -27,6 +27,13 @@
       "description": "Un menu para el restaurante los 3 Hermanos.",
       "image": "./assets/img/recurses/capturasTEst/Web3Hermanos.png",
       "url": "https://restaurante-3-hermanos.vercel.app/"
+    },
+    {
+      "title": "TECHNO.MDZ",
+      "description": "una demo de una web para fiestas",
+      "url": "https://tecnodemo.vercel.app/",
+      "id": "1766004497665",
+      "image": "./assets/img/uploads/1766004497658-817714940.png"
     }
   ],
   "sponsors": [
