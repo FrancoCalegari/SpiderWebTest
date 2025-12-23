@@ -314,4 +314,69 @@ document.addEventListener("DOMContentLoaded", function () {
 			});
 		});
 	}
+	function initSettings() {
+		const settingsBtn = document.getElementById("settingsBtn");
+		const settingsPopup = document.getElementById("settingsPopup");
+		const hueSlider = document.getElementById("accentHue");
+		const randomBtn = document.getElementById("randomColorBtn");
+
+		if (!settingsBtn || !settingsPopup || !hueSlider || !randomBtn) return;
+
+		// Toggle Popup
+		window.toggleSettings = () => {
+			if (settingsPopup.style.display === "block") {
+				settingsPopup.style.display = "none";
+			} else {
+				settingsPopup.style.display = "block";
+			}
+		};
+
+		settingsBtn.addEventListener("click", (e) => {
+			e.stopPropagation();
+			toggleSettings();
+		});
+
+		// Close when clicking outside
+		document.addEventListener("click", (e) => {
+			if (
+				!settingsPopup.contains(e.target) &&
+				!settingsBtn.contains(e.target)
+			) {
+				settingsPopup.style.display = "none";
+			}
+		});
+
+		// Color Logic using HSL
+		// Current accent color is #a51918 (HSL: ~358, 73%, 37%)
+
+		const updateAccentColor = (hue) => {
+			// Keeping saturation and lightness fixed for consistency, only changing Hue
+			const saturation = "73%";
+			const lightness = "37%";
+			const color = `hsl(${hue}, ${saturation}, ${lightness})`;
+
+			// Secondary light color (approx 95% lightness for pastel effect like #ffe5e2)
+			const lightColor = `hsl(${hue}, 100%, 95%)`;
+
+			document.documentElement.style.setProperty("--accent-color", color);
+			document.documentElement.style.setProperty(
+				"--accent-color-light",
+				lightColor
+			);
+
+			// Also update any other hardcoded colors if necessary, but CSS var is best.
+		};
+
+		hueSlider.addEventListener("input", (e) => {
+			updateAccentColor(e.target.value);
+		});
+
+		randomBtn.addEventListener("click", () => {
+			const randomHue = Math.floor(Math.random() * 360);
+			hueSlider.value = randomHue;
+			updateAccentColor(randomHue);
+		});
+	}
+
+	initSettings();
 });

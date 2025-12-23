@@ -16,6 +16,7 @@
 	--background-color: #f8f9fa;
 	--text-color: #333;
 	--accent-color: #a51918;
+	--accent-color-light: #ffe5e2;
 }
 
 html {
@@ -239,7 +240,7 @@ section h2 {
 	border-radius: 10px;
 	max-width: 300px;
 	text-align: center;
-	background-color: #ffe5e2;
+	background-color: var(--accent-color-light);
 	transition: transform 0.3s;
 }
 
@@ -314,7 +315,7 @@ section h2 {
 	max-width: 300px;
 	align-items: center;
 	text-align: center;
-	background-color: #ffe5e2;
+	background-color: var(--accent-color-light);
 	transition: transform 0.5s, box-shadow 0.5s;
 	flex-shrink: 0;
 	scroll-snap-align: start; /* Alinear al inicio del contenedor */
@@ -384,7 +385,7 @@ section h2 {
 	min-width: 300px;
 	max-width: 300px;
 	text-align: center;
-	background-color: #ffe5e2;
+	background-color: var(--accent-color-light);
 	transition: transform 0.3s, box-shadow 0.3s;
 	flex-shrink: 0;
 }
@@ -427,7 +428,7 @@ section h2 {
 	border-radius: 10px;
 	max-width: 300px;
 	text-align: center;
-	background-color: #ffe5e2;
+	background-color: var(--accent-color-light);
 	transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -477,7 +478,7 @@ section h2 {
 	border-radius: 10px;
 	max-width: 300px;
 	text-align: center;
-	background-color: #ffe5e2;
+	background-color: var(--accent-color-light);
 	transition: transform 0.3s, box-shadow 0.3s;
 	height: fit-content;
 }
@@ -862,7 +863,7 @@ section h2 {
 .faq-question {
 	width: 100%;
 	padding: 15px 20px;
-	background: #ffe5e2;
+	background: var(--accent-color-light);
 	border: none;
 	text-align: left;
 	font-size: 1.1rem;
@@ -905,4 +906,147 @@ section h2 {
 
 .faq-question.active .arrow {
 	transform: rotate(180deg);
+}
+
+/* Settings Popup & Icon */
+.footer-settings {
+	margin-top: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.settings-btn {
+	background: none;
+	border: none;
+	color: #fff;
+	cursor: pointer;
+	transition: transform 0.5s ease;
+	padding: 10px;
+}
+
+.settings-btn:hover {
+	transform: rotate(180deg);
+	color: #ddd;
+}
+
+.settings-popup {
+	display: none;
+	position: absolute;
+	bottom: 80px; /* Position above footer approximately */
+	left: 50%;
+	transform: translateX(-50%);
+	width: 300px;
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(15px);
+	-webkit-backdrop-filter: blur(15px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	color: #fff;
+	z-index: 1000;
+	padding: 20px;
+	animation: fadeInPopup 0.3s ease-out;
+}
+
+@keyframes fadeInPopup {
+	from {
+		opacity: 0;
+		transform: translate(-50%, 20px);
+	}
+	to {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+}
+
+.settings-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+	padding-bottom: 10px;
+}
+
+.settings-header h4 {
+	margin: 0;
+	font-family: "GothamBlackItalic";
+	font-size: 1.2rem;
+}
+
+.close-settings {
+	cursor: pointer;
+	font-size: 1.5rem;
+	font-weight: bold;
+	line-height: 1;
+}
+
+.settings-body {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.hue-slider {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 10px;
+	border-radius: 5px;
+	background: linear-gradient(
+		to right,
+		red,
+		orange,
+		yellow,
+		green,
+		blue,
+		indigo,
+		violet,
+		red
+	);
+	outline: none;
+	opacity: 0.9;
+	transition: opacity 0.2s;
+	cursor: pointer;
+}
+
+.hue-slider:hover {
+	opacity: 1;
+}
+
+.hue-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #fff;
+	cursor: pointer;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.hue-slider::-moz-range-thumb {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #fff;
+	cursor: pointer;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.random-btn {
+	padding: 10px;
+	background: rgba(255, 255, 255, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 8px;
+	color: #fff;
+	cursor: pointer;
+	font-family: inherit;
+	font-weight: bold;
+	transition: background 0.3s;
+}
+
+.random-btn:hover {
+	background: rgba(255, 255, 255, 0.3);
 }
