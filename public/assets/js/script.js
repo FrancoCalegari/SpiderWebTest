@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			renderSponsors(data.sponsors);
 			renderDesigns(data.designs); // NEW
 			initGalleryScroll();
+			initFAQ();
 		})
 		.catch((error) => console.error("Error loading data:", error));
 
@@ -281,6 +282,36 @@ document.addEventListener("DOMContentLoaded", function () {
 			const x = e.pageX - gallery.offsetLeft;
 			const walk = (x - startX) * 2; // Scroll-fast factor
 			gallery.scrollLeft = scrollLeft - walk;
+		});
+	}
+
+	function initFAQ() {
+		const questions = document.querySelectorAll(".faq-question");
+
+		questions.forEach((question) => {
+			question.addEventListener("click", () => {
+				// Toggle active class on button
+				question.classList.toggle("active");
+
+				// Toggle max-height on answer for animation
+				const answer = question.nextElementSibling;
+				if (question.classList.contains("active")) {
+					answer.style.maxHeight = answer.scrollHeight + "px";
+				} else {
+					answer.style.maxHeight = 0;
+				}
+
+				// Optional: Close others when one is opened (Accordion style)
+				questions.forEach((otherQuestion) => {
+					if (
+						otherQuestion !== question &&
+						otherQuestion.classList.contains("active")
+					) {
+						otherQuestion.classList.remove("active");
+						otherQuestion.nextElementSibling.style.maxHeight = 0;
+					}
+				});
+			});
 		});
 	}
 });
