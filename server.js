@@ -61,7 +61,7 @@ app.get("/api/images/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
 		const fetch = require("node-fetch");
-		const API_URL = process.env.SPIDER_API_URL || "http://192.168.100.164:3006/api/v1";
+		const API_URL = process.env.SPIDER_API_URL || "http://190.220.229.45:7256/api/v1";
 
 		const response = await fetch(`${API_URL}/storage/files/${id}`, {
 			headers: { "X-API-KEY": process.env.SPIDER_API_KEY }
@@ -435,8 +435,9 @@ initDB()
 		);
 	})
 	.catch((err) => {
-		console.error("Error al inicializar la base de datos:", err);
-		process.exit(1);
+		console.error("Error al inicializar la base de datos (Verificar conexión a IP remota):", err.message);
+		// No hacemos process.exit(1) para permitir que el servidor local encienda (Proxy a Vercel/Remoto)
+		app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT} (Sin DB confirmada)`));
 	});
 
 module.exports = app;
