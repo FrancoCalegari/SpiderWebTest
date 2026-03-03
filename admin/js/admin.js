@@ -10,9 +10,7 @@ async function loadData() {
 }
 
 function resolveImagePath(path) {
-	if (path && path.startsWith("./")) {
-		return path.substring(1); // Remove '.' to make it '/assets/...'
-	}
+	// Spider Storage returns full URLs, just return them as-is
 	return path || "";
 }
 
@@ -27,11 +25,10 @@ function renderProjects(projects) {
             <td>${p.description}</td>
             <td>
                 <button class="btn btn-warning" onclick='editProject(${JSON.stringify(
-									p
-								)})'>Editar</button>
-                <button class="btn btn-danger" onclick="deleteProject('${
-									p.id
-								}')">Borrar</button>
+			p
+		)})'>Editar</button>
+                <button class="btn btn-danger" onclick="deleteProject('${p.id
+			}')">Borrar</button>
             </td>
         `;
 		tbody.appendChild(tr);
@@ -52,21 +49,19 @@ function renderDesigns(designs) {
             <td>${d.title}</td>
             <td>
                 ${d.clientName}
-                ${
-									d.clientLogo
-										? `<img src="${resolveImagePath(
-												d.clientLogo
-										  )}" height="20" style="vertical-align: middle; margin-left: 5px;">`
-										: ""
-								}
+                ${d.clientLogo
+				? `<img src="${resolveImagePath(
+					d.clientLogo
+				)}" height="20" style="vertical-align: middle; margin-left: 5px;">`
+				: ""
+			}
             </td>
             <td>
                 <button class="btn btn-warning" onclick='editDesign(${JSON.stringify(
-									d
-								)})'>Editar</button>
-                <button class="btn btn-danger" onclick="deleteDesign('${
-									d.id
-								}')">Borrar</button>
+				d
+			)})'>Editar</button>
+                <button class="btn btn-danger" onclick="deleteDesign('${d.id
+			}')">Borrar</button>
             </td>
         `;
 		tbody.appendChild(tr);
@@ -81,13 +76,11 @@ function renderSponsors(sponsors) {
 		tr.innerHTML = `
             <td><img src="${resolveImagePath(s.image)}" height="50"></td>
             <td>${s.name}</td>
-            <td>${
-							s.url ? `<a href="${s.url}" target="_blank">Link</a>` : "-"
-						}</td>
+            <td>${s.url ? `<a href="${s.url}" target="_blank">Link</a>` : "-"
+			}</td>
             <td>
-                <button class="btn btn-danger" onclick="deleteSponsor('${
-									s.id
-								}')">Borrar</button>
+                <button class="btn btn-danger" onclick="deleteSponsor('${s.id
+			}')">Borrar</button>
             </td>
         `;
 		tbody.appendChild(tr);
