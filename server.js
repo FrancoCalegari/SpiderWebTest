@@ -4,7 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
-const session = require("express-session");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 const multer = require("multer");
 const { spiderQuery, spiderUpload, spiderDeleteFile, initDB } = require("./lib/spider");
 
@@ -28,6 +29,7 @@ const upload = multer({
 });
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
+app.set("trust proxy", 1);
 const allowedOrigins = [
 	"http://localhost:3000",
 	"http://127.0.0.1:3000",
@@ -45,18 +47,23 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-	session({
-		secret: process.env.SESSION_SECRET || "fallback-secret",
-		resave: false,
-		saveUninitialized: true,
-		cookie: { secure: process.env.NODE_ENV === "production" },
-	})
-);
+app.use(cookieParser());
+
 
 // ─── Auth Middleware ──────────────────────────────────────────────────────────
+const JWT_SECRET = process.env.SESSION_SECRET || "fallback-secret";
+
 function isAuthenticated(req, res, next) {
-	if (req.session.user) return next();
+	const token = req.cookies.jwt;
+	if (token) {
+		try {
+			const decoded = jwt.verify(token, JWT_SECRET);
+			req.user = decoded;
+			return next();
+		} catch (err) {
+			console.error("JWT verify error:", err.message);
+		}
+	}
 	if (req.method !== "GET") return res.status(401).json({ error: "No autorizado" });
 	if (req.originalUrl.startsWith("/admin")) return res.redirect("/login");
 	next();
@@ -115,14 +122,20 @@ app.post("/login", (req, res) => {
 		username === process.env.ADMIN_USER &&
 		password === process.env.ADMIN_PASSWORD
 	) {
-		req.session.user = { username };
+		const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: "24h" });
+		res.cookie("jwt", token, {
+			httpOnly: true,
+			secure: process.env.NODE_ENV === "production",
+			maxAge: 24 * 60 * 60 * 1000, // 24h
+			sameSite: "lax"
+		});
 		return res.status(200).json({ success: true });
 	}
 	res.status(401).json({ error: "Credenciales inválidas" });
 });
 
 app.get("/logout", (req, res) => {
-	req.session.destroy();
+	res.clearCookie("jwt");
 	res.redirect("/login");
 });
 
