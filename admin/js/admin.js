@@ -1,5 +1,69 @@
 const API_URL = "/api";
 
+// ── Image compression ─────────────────────────────────────────────────────────
+async function compressImage(file, maxWidth = 1200, maxHeight = 1200, quality = 0.82) {
+	return new Promise((resolve) => {
+		if (!file.type.startsWith("image/") || file.type === "image/gif") {
+			return resolve(file);
+		}
+
+		const img = new Image();
+		const url = URL.createObjectURL(file);
+
+		img.onload = () => {
+			URL.revokeObjectURL(url);
+
+			let { width, height } = img;
+			if (width > maxWidth || height > maxHeight) {
+				const ratio = Math.min(maxWidth / width, maxHeight / height);
+				width = Math.round(width * ratio);
+				height = Math.round(height * ratio);
+			}
+
+			const canvas = document.createElement("canvas");
+			canvas.width = width;
+			canvas.height = height;
+
+			const ctx = canvas.getContext("2d");
+			ctx.drawImage(img, 0, 0, width, height);
+
+			const outputType = canvas.toDataURL("image/webp").startsWith("data:image/webp")
+				? "image/webp"
+				: "image/jpeg";
+
+			canvas.toBlob(
+				(blob) => {
+					if (blob.size >= file.size) return resolve(file);
+
+					const compressed = new File(
+						[blob],
+						file.name.replace(/\.[^.]+$/, "") + (outputType === "image/webp" ? ".webp" : ".jpg"),
+						{ type: outputType, lastModified: Date.now() }
+					);
+
+					console.log(
+						`Compresión: ${(file.size / 1024).toFixed(0)}KB → ${(compressed.size / 1024).toFixed(0)}KB`,
+						`(${Math.round((1 - compressed.size / file.size) * 100)}% reducción)`
+					);
+
+					resolve(compressed);
+				},
+				outputType,
+				quality
+			);
+		};
+
+		img.onerror = () => {
+			URL.revokeObjectURL(url);
+			resolve(file);
+		};
+
+		img.src = url;
+	});
+}
+
+// ── resto del archivo (loadData, renderProjects, forms, etc.) ─────────────────
+
 async function loadData() {
 	try {
 		const res = await fetch(`${API_URL}/data`);
@@ -146,19 +210,31 @@ document.getElementById("projectForm").addEventListener("submit", async (e) => {
 	fd.append("url", document.getElementById("projectUrl").value);
 
 	const img = document.getElementById("projectImage");
-	if (img.files.length) fd.append("image", img.files[0]);
+	if (img.files.length) {
+		const compressed = await compressImage(img.files[0]);
+		fd.append("image", compressed);
+	}
 
 	try {
 		const res = await fetch(
 			id ? `${API_URL}/projects/${id}` : `${API_URL}/projects`,
 			{ method: id ? "PUT" : "POST", body: fd }
 		);
-		if (!res.ok) throw new Error();
+
+		if (!res.ok) {
+			// Leer el mensaje exacto del servidor
+			const err = await res.json().catch(() => ({ error: "Error desconocido" }));
+			console.error("Error del servidor:", err);
+			showToast(`Error: ${err.error || res.status}`, "error");
+			return;
+		}
+
 		closeModal("projectModal");
 		showToast(id ? "Proyecto actualizado" : "Proyecto creado");
 		loadData();
-	} catch {
-		showToast("Error al guardar", "error");
+	} catch (err) {
+		console.error("Error de red:", err);
+		showToast("Error de conexión", "error");
 	} finally {
 		btn.disabled = false;
 		btn.textContent = "Guardar";
