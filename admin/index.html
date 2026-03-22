@@ -1,128 +1,647 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>SpiderWeb - Admin</title>
-		<link
-			href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-			rel="stylesheet"
-		/>
-		<style>
-			body {
-				font-family: "Roboto", sans-serif;
-				background: #f4f4f4;
-				margin: 0;
-				padding: 20px;
-			}
-			.container {
-				max-width: 1000px;
-				margin: auto;
-				background: white;
-				padding: 20px;
-				border-radius: 8px;
-				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-			}
-			h1,
-			h2 {
-				color: #333;
-			}
-			.section {
-				margin-bottom: 40px;
-			}
-			table {
-				width: 100%;
-				border-collapse: collapse;
-				margin-top: 20px;
-			}
-			th,
-			td {
-				padding: 12px;
-				border-bottom: 1px solid #ddd;
-				text-align: left;
-			}
-			th {
-				background-color: #f8f9fa;
-			}
-			.btn {
-				padding: 8px 12px;
-				border: none;
-				border-radius: 4px;
-				cursor: pointer;
-				color: white;
-				margin-right: 5px;
-			}
-			.btn-primary {
-				background-color: #007bff;
-			}
-			.btn-danger {
-				background-color: #dc3545;
-			}
-			.btn-warning {
-				background-color: #ffc107;
-				color: black;
-			}
-			.modal {
-				display: none;
-				position: fixed;
-				z-index: 1000;
-				left: 0;
-				top: 0;
-				width: 100%;
-				height: 100%;
-				background: rgba(0, 0, 0, 0.5);
-			}
-			.modal-content {
-				background: white;
-				margin: 3% auto;
-				padding: 20px;
-				max-width: 500px;
-				border-radius: 8px;
-			}
-			.close {
-				float: right;
-				font-size: 28px;
-				font-weight: bold;
-				cursor: pointer;
-			}
-			form input,
-			form textarea {
-				width: 100%;
-				padding: 8px;
-				margin: 10px 0;
-				border: 1px solid #ddd;
-				border-radius: 4px;
-				box-sizing: border-box;
-			}
-			.btn-add {
-				float: right;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<h1>
-				Admin Dashboard
-				<button
-					class="btn btn-danger"
-					onclick="window.location.href='/logout'"
-					style="float: right; font-size: 14px"
-				>
-					Cerrar Sesión
-				</button>
-			</h1>
 
-			<!-- Projects Section -->
-			<div class="section">
-				<h2>
-					Proyectos
-					<button
-						class="btn btn-primary btn-add"
-						onclick="openModal('projectModal')"
-					>
-						Nuevo Proyecto
-					</button>
-				</h2>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>SpiderWeb — Admin</title>
+	<style>
+		@font-face {
+			font-family: "GothamBlackItalic";
+			src: url(../assets/font/GOTHAM-BLACKITALIC.TTF) format("truetype");
+		}
+
+		*,
+		*::before,
+		*::after {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		:root {
+			--bg-dark: #0a0a0f;
+			--bg-section: #111118;
+			--bg-glass: rgba(255, 255, 255, 0.05);
+			--bg-glass-hover: rgba(255, 255, 255, 0.08);
+			--border-glass: rgba(255, 255, 255, 0.08);
+			--border-hover: rgba(255, 255, 255, 0.14);
+			--accent: #e63946;
+			--accent-glow: rgba(230, 57, 70, 0.3);
+			--accent-soft: rgba(230, 57, 70, 0.12);
+			--gradient-accent: linear-gradient(135deg, #e63946, #ff6b6b);
+			--text-primary: #f1f1f1;
+			--text-secondary: #888;
+			--text-muted: #555;
+			--radius-sm: 8px;
+			--radius-md: 14px;
+			--radius-lg: 20px;
+			--transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			--sidebar-w: 240px;
+		}
+
+		html,
+		body {
+			height: 100%;
+		}
+
+		body {
+			font-family: "Inter", system-ui, sans-serif;
+			background: var(--bg-dark);
+			color: var(--text-primary);
+			display: flex;
+			min-height: 100vh;
+			overflow-x: hidden;
+		}
+
+		/* Grain */
+		body::after {
+			content: "";
+			position: fixed;
+			inset: 0;
+			pointer-events: none;
+			z-index: 9999;
+			opacity: 0.02;
+			background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+			background-size: 256px;
+		}
+
+		/* ── Sidebar ── */
+		.sidebar {
+			width: var(--sidebar-w);
+			background: var(--bg-section);
+			border-right: 1px solid var(--border-glass);
+			display: flex;
+			flex-direction: column;
+			padding: 28px 0;
+			position: fixed;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			z-index: 100;
+		}
+
+		.sidebar-brand {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 0 24px 28px;
+			border-bottom: 1px solid var(--border-glass);
+			margin-bottom: 20px;
+		}
+
+		.sidebar-brand img {
+			width: 32px;
+			height: 32px;
+			filter: brightness(0) invert(1);
+		}
+
+		.sidebar-brand span {
+			font-family: "GothamBlackItalic";
+			font-size: 1.1rem;
+			background: var(--gradient-accent);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.nav-label {
+			font-size: 0.65rem;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: var(--text-muted);
+			padding: 0 24px;
+			margin-bottom: 8px;
+		}
+
+		.nav-item {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 11px 24px;
+			cursor: pointer;
+			color: var(--text-secondary);
+			font-size: 0.875rem;
+			font-weight: 500;
+			transition: color var(--transition), background var(--transition);
+			border-left: 2px solid transparent;
+			margin: 1px 0;
+		}
+
+		.nav-item:hover {
+			color: var(--text-primary);
+			background: var(--bg-glass);
+		}
+
+		.nav-item.active {
+			color: var(--text-primary);
+			background: var(--accent-soft);
+			border-left-color: var(--accent);
+		}
+
+		.nav-item .icon {
+			font-size: 16px;
+			width: 18px;
+			text-align: center;
+		}
+
+		.sidebar-footer {
+			margin-top: auto;
+			padding: 20px 24px 0;
+			border-top: 1px solid var(--border-glass);
+		}
+
+		.btn-logout {
+			width: 100%;
+			padding: 10px;
+			background: rgba(230, 57, 70, 0.1);
+			border: 1px solid rgba(230, 57, 70, 0.2);
+			border-radius: var(--radius-sm);
+			color: var(--accent);
+			cursor: pointer;
+			font-size: 0.85rem;
+			font-weight: 600;
+			font-family: inherit;
+			transition: background var(--transition), border-color var(--transition);
+		}
+
+		.btn-logout:hover {
+			background: rgba(230, 57, 70, 0.18);
+			border-color: rgba(230, 57, 70, 0.4);
+		}
+
+		/* ── Main ── */
+		.main {
+			margin-left: var(--sidebar-w);
+			flex: 1;
+			padding: 32px 36px;
+			min-height: 100vh;
+		}
+
+		.topbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 36px;
+		}
+
+		.topbar h1 {
+			font-family: "GothamBlackItalic";
+			font-size: 1.6rem;
+			color: var(--text-primary);
+		}
+
+		.topbar .badge {
+			font-size: 0.7rem;
+			padding: 3px 10px;
+			background: var(--accent-soft);
+			border: 1px solid rgba(230, 57, 70, 0.2);
+			border-radius: 20px;
+			color: var(--accent);
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			margin-left: 12px;
+			vertical-align: middle;
+		}
+
+		/* ── Panels (tabs) ── */
+		.panel {
+			display: none;
+		}
+
+		.panel.active {
+			display: block;
+		}
+
+		/* ── Section header ── */
+		.section-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+
+		.section-header h2 {
+			font-family: "GothamBlackItalic";
+			font-size: 1.1rem;
+			color: var(--text-primary);
+		}
+
+		/* ── Table ── */
+		.table-wrap {
+			background: var(--bg-glass);
+			border: 1px solid var(--border-glass);
+			border-radius: var(--radius-md);
+			overflow: hidden;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		thead th {
+			padding: 13px 16px;
+			text-align: left;
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			letter-spacing: 1.5px;
+			color: var(--text-muted);
+			background: rgba(255, 255, 255, 0.02);
+			border-bottom: 1px solid var(--border-glass);
+			font-weight: 600;
+		}
+
+		tbody tr {
+			border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+			transition: background var(--transition);
+		}
+
+		tbody tr:last-child {
+			border-bottom: none;
+		}
+
+		tbody tr:hover {
+			background: var(--bg-glass-hover);
+		}
+
+		tbody td {
+			padding: 12px 16px;
+			font-size: 0.875rem;
+			color: var(--text-secondary);
+			vertical-align: middle;
+		}
+
+		tbody td:first-child {
+			color: var(--text-primary);
+		}
+
+		tbody td img {
+			width: 44px;
+			height: 44px;
+			object-fit: cover;
+			border-radius: 6px;
+			border: 1px solid var(--border-glass);
+		}
+
+		/* ── Buttons ── */
+		.btn {
+			padding: 7px 14px;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 0.78rem;
+			font-weight: 600;
+			font-family: inherit;
+			transition: transform var(--transition), box-shadow var(--transition), opacity var(--transition);
+			display: inline-flex;
+			align-items: center;
+			gap: 5px;
+		}
+
+		.btn:hover {
+			transform: translateY(-1px);
+		}
+
+		.btn:active {
+			transform: translateY(0);
+		}
+
+		.btn-primary {
+			background: var(--gradient-accent);
+			color: #fff;
+		}
+
+		.btn-primary:hover {
+			box-shadow: 0 4px 16px var(--accent-glow);
+		}
+
+		.btn-edit {
+			background: rgba(255, 255, 255, 0.07);
+			border: 1px solid var(--border-glass);
+			color: var(--text-primary);
+		}
+
+		.btn-edit:hover {
+			background: rgba(255, 255, 255, 0.12);
+			border-color: var(--border-hover);
+		}
+
+		.btn-delete {
+			background: rgba(230, 57, 70, 0.1);
+			border: 1px solid rgba(230, 57, 70, 0.2);
+			color: #ff6b6b;
+		}
+
+		.btn-delete:hover {
+			background: rgba(230, 57, 70, 0.18);
+			border-color: rgba(230, 57, 70, 0.4);
+		}
+
+		.actions {
+			display: flex;
+			gap: 6px;
+		}
+
+		/* ── Modal ── */
+		.modal {
+			display: none;
+			position: fixed;
+			inset: 0;
+			z-index: 1000;
+			background: rgba(0, 0, 0, 0.75);
+			backdrop-filter: blur(6px);
+			-webkit-backdrop-filter: blur(6px);
+			justify-content: center;
+			align-items: flex-start;
+			padding: 40px 20px;
+			overflow-y: auto;
+		}
+
+		.modal.open {
+			display: flex;
+		}
+
+		.modal-content {
+			background: var(--bg-section);
+			border: 1px solid var(--border-glass);
+			border-radius: var(--radius-lg);
+			padding: 32px;
+			width: 100%;
+			max-width: 480px;
+			animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+			position: relative;
+		}
+
+		@keyframes modalIn {
+			from {
+				opacity: 0;
+				transform: translateY(20px) scale(0.97);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+		}
+
+		.modal-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 24px;
+			padding-bottom: 16px;
+			border-bottom: 1px solid var(--border-glass);
+		}
+
+		.modal-header h2 {
+			font-family: "GothamBlackItalic";
+			font-size: 1.15rem;
+			background: var(--gradient-accent);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.modal-close {
+			cursor: pointer;
+			color: var(--text-secondary);
+			font-size: 1.4rem;
+			line-height: 1;
+			transition: color var(--transition);
+			background: none;
+			border: none;
+			padding: 4px;
+		}
+
+		.modal-close:hover {
+			color: var(--accent);
+		}
+
+		/* ── Form fields ── */
+		.field-group {
+			margin-bottom: 14px;
+		}
+
+		.field-group label {
+			display: block;
+			font-size: 0.72rem;
+			text-transform: uppercase;
+			letter-spacing: 1.2px;
+			color: var(--text-secondary);
+			margin-bottom: 6px;
+			font-weight: 600;
+		}
+
+		.field-group input,
+		.field-group textarea {
+			width: 100%;
+			padding: 11px 14px;
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid var(--border-glass);
+			border-radius: var(--radius-sm);
+			color: var(--text-primary);
+			font-size: 0.875rem;
+			font-family: inherit;
+			outline: none;
+			transition: border-color var(--transition), box-shadow var(--transition);
+			resize: vertical;
+		}
+
+		.field-group input::placeholder,
+		.field-group textarea::placeholder {
+			color: var(--text-muted);
+		}
+
+		.field-group input:focus,
+		.field-group textarea:focus {
+			border-color: var(--accent);
+			box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.12);
+		}
+
+		.field-group input[type="file"] {
+			padding: 8px 14px;
+			cursor: pointer;
+			color: var(--text-secondary);
+		}
+
+		.field-group input[type="file"]::-webkit-file-upload-button {
+			background: rgba(255, 255, 255, 0.07);
+			border: 1px solid var(--border-glass);
+			border-radius: 5px;
+			color: var(--text-primary);
+			padding: 5px 12px;
+			cursor: pointer;
+			font-size: 0.78rem;
+			margin-right: 10px;
+			transition: background var(--transition);
+		}
+
+		.field-group input[type="file"]::-webkit-file-upload-button:hover {
+			background: rgba(255, 255, 255, 0.12);
+		}
+
+		.section-divider {
+			font-size: 0.7rem;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			color: var(--text-muted);
+			margin: 18px 0 12px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.section-divider::after {
+			content: "";
+			flex: 1;
+			height: 1px;
+			background: var(--border-glass);
+		}
+
+		.modal-actions {
+			margin-top: 24px;
+			display: flex;
+			gap: 10px;
+			justify-content: flex-end;
+		}
+
+		.btn-cancel {
+			padding: 10px 20px;
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid var(--border-glass);
+			border-radius: var(--radius-sm);
+			color: var(--text-secondary);
+			cursor: pointer;
+			font-family: inherit;
+			font-size: 0.875rem;
+			transition: background var(--transition);
+		}
+
+		.btn-cancel:hover {
+			background: rgba(255, 255, 255, 0.09);
+		}
+
+		.btn-save {
+			padding: 10px 24px;
+			background: var(--gradient-accent);
+			border: none;
+			border-radius: var(--radius-sm);
+			color: #fff;
+			font-weight: 700;
+			font-family: "GothamBlackItalic";
+			font-size: 0.9rem;
+			cursor: pointer;
+			transition: transform var(--transition), box-shadow var(--transition);
+		}
+
+		.btn-save:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 6px 20px var(--accent-glow);
+		}
+
+		/* Empty state */
+		.empty-state {
+			text-align: center;
+			padding: 48px 24px;
+			color: var(--text-muted);
+			font-size: 0.875rem;
+		}
+
+		/* Toast */
+		#toast {
+			position: fixed;
+			bottom: 28px;
+			right: 28px;
+			background: var(--bg-section);
+			border: 1px solid var(--border-glass);
+			border-radius: var(--radius-sm);
+			padding: 12px 20px;
+			font-size: 0.85rem;
+			color: var(--text-primary);
+			z-index: 9998;
+			opacity: 0;
+			transform: translateY(8px);
+			transition: opacity 0.3s, transform 0.3s;
+			pointer-events: none;
+		}
+
+		#toast.show {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		#toast.success {
+			border-left: 3px solid #4caf50;
+		}
+
+		#toast.error {
+			border-left: 3px solid var(--accent);
+		}
+
+		/* Loading */
+		.loading-row td {
+			text-align: center;
+			padding: 32px;
+			color: var(--text-muted);
+			font-size: 0.85rem;
+		}
+
+		@media (max-width: 768px) {
+			.sidebar {
+				transform: translateX(-100%);
+			}
+
+			.main {
+				margin-left: 0;
+				padding: 20px 16px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Sidebar -->
+	<aside class="sidebar">
+		<div class="sidebar-brand">
+			<img src="../assets/img/logo.svg" alt="Logo" onerror="this.style.display='none'" />
+			<span>SpiderWeb</span>
+		</div>
+
+		<p class="nav-label">Contenido</p>
+		<div class="nav-item active" data-panel="projects" onclick="switchPanel('projects', this)">
+			<span class="icon">◈</span> Proyectos
+		</div>
+		<div class="nav-item" data-panel="designs" onclick="switchPanel('designs', this)">
+			<span class="icon">◎</span> Diseños
+		</div>
+		<div class="nav-item" data-panel="sponsors" onclick="switchPanel('sponsors', this)">
+			<span class="icon">◇</span> Clientes
+		</div>
+
+		<div class="sidebar-footer">
+			<button class="btn-logout" onclick="window.location.href='/logout'">
+				Cerrar sesión
+			</button>
+		</div>
+	</aside>
+
+	<!-- Main -->
+	<main class="main">
+		<div class="topbar">
+			<div>
+				<h1>Dashboard <span class="badge">Admin</span></h1>
+			</div>
+		</div>
+
+		<!-- Projects panel -->
+		<div class="panel active" id="panel-projects">
+			<div class="section-header">
+				<h2>Proyectos</h2>
+				<button class="btn btn-primary" onclick="openModal('projectModal')">+ Nuevo</button>
+			</div>
+			<div class="table-wrap">
 				<table id="projectsTable">
 					<thead>
 						<tr>
@@ -132,21 +651,22 @@
 							<th>Acciones</th>
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						<tr class="loading-row">
+							<td colspan="4">Cargando...</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
+		</div>
 
-			<!-- Designs Section -->
-			<div class="section">
-				<h2>
-					Diseños
-					<button
-						class="btn btn-primary btn-add"
-						onclick="openModal('designModal')"
-					>
-						Nuevo Diseño
-					</button>
-				</h2>
+		<!-- Designs panel -->
+		<div class="panel" id="panel-designs">
+			<div class="section-header">
+				<h2>Diseños y Publicidad</h2>
+				<button class="btn btn-primary" onclick="openModal('designModal')">+ Nuevo</button>
+			</div>
+			<div class="table-wrap">
 				<table id="designsTable">
 					<thead>
 						<tr>
@@ -156,21 +676,22 @@
 							<th>Acciones</th>
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						<tr class="loading-row">
+							<td colspan="4">Cargando...</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
+		</div>
 
-			<!-- Sponsors Section -->
-			<div class="section">
-				<h2>
-					Sponsors
-					<button
-						class="btn btn-primary btn-add"
-						onclick="openModal('sponsorModal')"
-					>
-						Nuevo Sponsor
-					</button>
-				</h2>
+		<!-- Sponsors panel -->
+		<div class="panel" id="panel-sponsors">
+			<div class="section-header">
+				<h2>Clientes / Sponsors</h2>
+				<button class="btn btn-primary" onclick="openModal('sponsorModal')">+ Nuevo</button>
+			</div>
+			<div class="table-wrap">
 				<table id="sponsorsTable">
 					<thead>
 						<tr>
@@ -180,92 +701,172 @@
 							<th>Acciones</th>
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody>
+						<tr class="loading-row">
+							<td colspan="4">Cargando...</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 		</div>
+	</main>
 
-		<!-- Project Modal (Unchanged) -->
-		<div id="projectModal" class="modal">
-			<div class="modal-content">
-				<span class="close" onclick="closeModal('projectModal')">&times;</span>
-				<h2 id="projectModalTitle">Agregar Proyecto</h2>
-				<form id="projectForm">
-					<input type="hidden" id="projectId" />
-					<input type="text" id="projectTitle" placeholder="Título" required />
-					<textarea
-						id="projectDesc"
-						placeholder="Descripción"
-						required
-					></textarea>
-					<label for="projectImage">Imagen:</label>
+	<!-- ── Project Modal ── -->
+	<div id="projectModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 id="projectModalTitle">Nuevo Proyecto</h2>
+				<button class="modal-close" onclick="closeModal('projectModal')">&times;</button>
+			</div>
+			<form id="projectForm">
+				<input type="hidden" id="projectId" />
+				<div class="field-group">
+					<label>Título</label>
+					<input type="text" id="projectTitle" placeholder="Nombre del proyecto" required />
+				</div>
+				<div class="field-group">
+					<label>Descripción</label>
+					<textarea id="projectDesc" placeholder="Breve descripción" rows="3" required></textarea>
+				</div>
+				<div class="field-group">
+					<label>Imagen</label>
 					<input type="file" id="projectImage" accept="image/*" />
-					<input
-						type="text"
-						id="projectUrl"
-						placeholder="URL del Proyecto"
-						required
-					/>
-					<button type="submit" class="btn btn-primary">Guardar</button>
-				</form>
-			</div>
+				</div>
+				<div class="field-group">
+					<label>URL del Proyecto</label>
+					<input type="text" id="projectUrl" placeholder="https://..." required />
+				</div>
+				<div class="modal-actions">
+					<button type="button" class="btn-cancel" onclick="closeModal('projectModal')">Cancelar</button>
+					<button type="submit" class="btn-save">Guardar</button>
+				</div>
+			</form>
 		</div>
+	</div>
 
-		<!-- Design Modal -->
-		<div id="designModal" class="modal">
-			<div class="modal-content">
-				<span class="close" onclick="closeModal('designModal')">&times;</span>
-				<h2 id="designModalTitle">Agregar Diseño</h2>
-				<form id="designForm">
-					<input type="hidden" id="designId" />
-					<input type="text" id="designTitle" placeholder="Título" required />
-					<textarea
-						id="designDesc"
-						placeholder="Descripción"
-						required
-					></textarea>
-					<label for="designImage">Imagen Principal:</label>
+	<!-- ── Design Modal ── -->
+	<div id="designModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 id="designModalTitle">Nuevo Diseño</h2>
+				<button class="modal-close" onclick="closeModal('designModal')">&times;</button>
+			</div>
+			<form id="designForm">
+				<input type="hidden" id="designId" />
+				<div class="field-group">
+					<label>Título</label>
+					<input type="text" id="designTitle" placeholder="Nombre del diseño" required />
+				</div>
+				<div class="field-group">
+					<label>Descripción</label>
+					<textarea id="designDesc" placeholder="Descripción" rows="3" required></textarea>
+				</div>
+				<div class="field-group">
+					<label>Imagen Principal</label>
 					<input type="file" id="designImage" accept="image/*" />
-
-					<h3>Cliente</h3>
-					<input
-						type="text"
-						id="designClientName"
-						placeholder="Nombre del Cliente (Opcional)"
-					/>
-					<label for="designClientLogo">Logo del Cliente (Opcional):</label>
+				</div>
+				<div class="field-group">
+					<label>Link de Publicación</label>
+					<input type="text" id="designLink" placeholder="https://... (Opcional)" />
+				</div>
+				<div class="section-divider">Cliente</div>
+				<div class="field-group">
+					<label>Nombre del Cliente</label>
+					<input type="text" id="designClientName" placeholder="Opcional" />
+				</div>
+				<div class="field-group">
+					<label>Logo del Cliente</label>
 					<input type="file" id="designClientLogo" accept="image/*" />
-					<input
-						type="text"
-						id="designLink"
-						placeholder="Link de Publicación (Opcional)"
-					/>
-
-					<button type="submit" class="btn btn-primary">Guardar</button>
-				</form>
-			</div>
+				</div>
+				<div class="modal-actions">
+					<button type="button" class="btn-cancel" onclick="closeModal('designModal')">Cancelar</button>
+					<button type="submit" class="btn-save">Guardar</button>
+				</div>
+			</form>
 		</div>
+	</div>
 
-		<!-- Sponsor Modal -->
-		<div id="sponsorModal" class="modal">
-			<div class="modal-content">
-				<span class="close" onclick="closeModal('sponsorModal')">&times;</span>
-				<h2 id="sponsorModalTitle">Agregar Sponsor</h2>
-				<form id="sponsorForm">
-					<input type="hidden" id="sponsorId" />
-					<input type="text" id="sponsorName" placeholder="Nombre" required />
-					<input
-						type="text"
-						id="sponsorUrl"
-						placeholder="Sitio Web (Opcional)"
-					/>
-					<label for="sponsorImage">Logo:</label>
+	<!-- ── Sponsor Modal ── -->
+	<div id="sponsorModal" class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 id="sponsorModalTitle">Nuevo Cliente</h2>
+				<button class="modal-close" onclick="closeModal('sponsorModal')">&times;</button>
+			</div>
+			<form id="sponsorForm">
+				<input type="hidden" id="sponsorId" />
+				<div class="field-group">
+					<label>Nombre</label>
+					<input type="text" id="sponsorName" placeholder="Nombre del cliente" required />
+				</div>
+				<div class="field-group">
+					<label>Sitio Web</label>
+					<input type="text" id="sponsorUrl" placeholder="https://... (Opcional)" />
+				</div>
+				<div class="field-group">
+					<label>Logo</label>
 					<input type="file" id="sponsorImage" accept="image/*" />
-					<button type="submit" class="btn btn-primary">Guardar</button>
-				</form>
-			</div>
+				</div>
+				<div class="modal-actions">
+					<button type="button" class="btn-cancel" onclick="closeModal('sponsorModal')">Cancelar</button>
+					<button type="submit" class="btn-save">Guardar</button>
+				</div>
+			</form>
 		</div>
+	</div>
 
-		<script src="/admin/js/admin.js"></script>
-	</body>
+	<!-- Toast -->
+	<div id="toast"></div>
+
+	<script>
+		// ── Panel switching ──
+		function switchPanel(name, el) {
+			document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+			document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+			document.getElementById('panel-' + name).classList.add('active');
+			el.classList.add('active');
+		}
+
+		// ── Toast ──
+		function showToast(msg, type = 'success') {
+			const t = document.getElementById('toast');
+			t.textContent = msg;
+			t.className = 'show ' + type;
+			setTimeout(() => t.className = '', 3000);
+		}
+
+		// ── Modals ──
+		window.openModal = (id) => {
+			const m = document.getElementById(id);
+			m.classList.add('open');
+			if (id === 'projectModal') {
+				document.getElementById('projectForm').reset();
+				document.getElementById('projectId').value = '';
+				document.getElementById('projectModalTitle').innerText = 'Nuevo Proyecto';
+			}
+			if (id === 'designModal') {
+				document.getElementById('designForm').reset();
+				document.getElementById('designId').value = '';
+				document.getElementById('designModalTitle').innerText = 'Nuevo Diseño';
+			}
+			if (id === 'sponsorModal') {
+				document.getElementById('sponsorForm').reset();
+				document.getElementById('sponsorModalTitle').innerText = 'Nuevo Cliente';
+			}
+		};
+
+		window.closeModal = (id) => {
+			document.getElementById(id).classList.remove('open');
+		};
+
+		// Close on backdrop click
+		document.querySelectorAll('.modal').forEach(m => {
+			m.addEventListener('click', (e) => {
+				if (e.target === m) m.classList.remove('open');
+			});
+		});
+	</script>
+	<script src="/admin/js/admin.js"></script>
+</body>
+
 </html>

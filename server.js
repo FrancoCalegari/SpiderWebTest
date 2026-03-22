@@ -147,6 +147,10 @@ app.get("/", (req, res) =>
 	res.sendFile(path.join(__dirname, "index.html"))
 );
 
+app.get("/test", (req, res) =>
+	res.sendFile(path.join(__dirname, "indextest.html"))
+);
+
 // ─── Helper: mapear fila de BD al formato que espera el frontend ──────────────
 function mapProject(row) {
 	return {

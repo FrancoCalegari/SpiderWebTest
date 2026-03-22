@@ -1,56 +1,50 @@
-window.addEventListener("load", () => {
+// ── Intro: usar DOMContentLoaded en lugar de load ──────────────────
+// window load espera a TODAS las imágenes/recursos — puede tardar 5-10s.
+// DOMContentLoaded se dispara apenas el HTML está parseado (~100-300ms).
+document.addEventListener("DOMContentLoaded", () => {
 	const animationContainer = document.querySelector(".animation-container");
 	const mainContent = document.getElementById("main-content");
 
-	// Smoother Intro Animation
-	setTimeout(() => {
-		animationContainer.style.transition =
-			"opacity 2s ease-out, filter 2s ease-out";
-		animationContainer.style.opacity = "0";
-		animationContainer.style.filter = "blur(20px)";
-	}, 2500);
+	// La animación CSS dura ~0.9s (logo 0.5s + texto empieza en 0.4s + dura 0.5s).
+	// Mostramos el contenido a los 1.2s — suficiente para ver la animación completa.
+	const SPLASH_DURATION = 1200;
+	const FADE_DURATION = 400;
 
 	setTimeout(() => {
-		animationContainer.style.display = "none";
+		// Fade out con CSS class en vez de inline style con blur pesado
+		animationContainer.classList.add("hide");
+
+		// Mostrar contenido durante el fade-out del splash
 		mainContent.style.display = "block";
-		// Small delay to allow display:block to apply before opacity transition
 		requestAnimationFrame(() => {
-			mainContent.style.opacity = 1;
+			requestAnimationFrame(() => {
+				mainContent.style.opacity = "1";
+			});
 		});
-	}, 3000); // Increased time to allow fade out to finish
+
+		// Remover del DOM una vez terminado el fade
+		setTimeout(() => animationContainer.remove(), FADE_DURATION);
+	}, SPLASH_DURATION);
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-	// ... (Helper functions remain mostly the same, condensed for brevity) ...
-	function isMobileDevice() {
-		return window.innerWidth < 900;
-	}
-	function isPcDevice() {
-		return window.innerWidth >= 900;
-	}
+
+	function isMobileDevice() { return window.innerWidth < 900; }
+	function isPcDevice() { return window.innerWidth >= 900; }
 
 	function loadHeroImages() {
-		if (isMobileDevice()) {
-			const left = document.querySelector(".hero-image.left");
-			const right = document.querySelector(".hero-image.right");
-			const center = document.querySelector(".hero-image.center");
-			if (left) left.src = "./assets/img/recurses/capturasTEst/mobile_img2.png";
-			if (right)
-				right.src = "./assets/img/recurses/capturasTEst/TartasOdiTelefono.png";
-			if (center) center.src = "./assets/img/logo.svg";
-		}
-	}
+		const left = document.querySelector(".hero-image.left");
+		const right = document.querySelector(".hero-image.right");
+		const center = document.querySelector(".hero-image.center");
 
-	function loadPcImages() {
-		if (isPcDevice()) {
-			const left = document.querySelector(".hero-image.left");
-			const right = document.querySelector(".hero-image.right");
-			const center = document.querySelector(".hero-image.center");
+		if (isMobileDevice()) {
+			if (left) left.src = "./assets/img/recurses/capturasTEst/mobile_img2.png";
+			if (right) right.src = "./assets/img/recurses/capturasTEst/TartasOdiTelefono.png";
+		} else {
 			if (left) left.src = "./assets/img/recurses/capturasTEst/img2.png";
-			if (right)
-				right.src = "./assets/img/recurses/capturasTEst/WebTartasODI.png";
-			if (center) center.src = "./assets/img/logo.svg";
+			if (right) right.src = "./assets/img/recurses/capturasTEst/WebTartasODI.png";
 		}
+		if (center) center.src = "./assets/img/logo.svg";
 	}
 
 	function applyHeroImageAnimation() {
@@ -60,15 +54,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		if (!leftImage || !rightImage || !centerImage) return;
 
+		loadHeroImages();
+
 		if (isMobileDevice()) {
 			leftImage.style.transform = "translate(-100%, 20%)";
 			rightImage.style.transform = "translate(100%, 20%)";
-			loadHeroImages();
-		}
-		if (isPcDevice()) {
+		} else {
 			leftImage.style.transform = "translate(-100%, 0%)";
 			rightImage.style.transform = "translate(100%, 0%)";
-			loadPcImages();
 		}
 
 		leftImage.style.opacity = "1";
@@ -77,61 +70,63 @@ document.addEventListener("DOMContentLoaded", function () {
 		centerImage.style.opacity = "1";
 	}
 
-	// Hero Images Height Animation
+	// Hero images se animan apenas termina el splash (~1.2s) + pequeño buffer
 	setTimeout(() => {
 		const heroImages = document.querySelector(".hero-images");
 		if (heroImages) {
 			let height = 0;
-			let interval = setInterval(() => {
-				if (height >= 30) clearInterval(interval);
-				else {
+			const interval = setInterval(() => {
+				if (height >= 30) {
+					clearInterval(interval);
+				} else {
 					height += 1;
 					heroImages.style.height = height + "vh";
 				}
 			}, 10);
 		}
 		applyHeroImageAnimation();
-	}, 3800); // Synced with new intro timing
+	}, 1500); // antes: 3800ms
 
 	window.addEventListener("resize", applyHeroImageAnimation);
 
-	// --- Dynamic Data Loading ---
+	// --- Data: fetch no bloquea el splash, carga en paralelo --------
 	fetch("/api/data")
-		.then((response) => response.json())
+		.then((res) => res.json())
 		.then((data) => {
 			renderProjects(data.projects);
 			renderSponsors(data.sponsors);
-			renderDesigns(data.designs); // NEW
+			renderDesigns(data.designs);
 			initGalleryScroll();
 			initFAQ();
 		})
-		.catch((error) => console.error("Error loading data:", error));
+		.catch((err) => {
+			console.error("Error loading data:", err);
+			// Inicializar FAQ aunque falle el fetch
+			initFAQ();
+		});
 
 	function renderProjects(projects) {
 		const gallery = document.querySelector(".gallery");
-		if (!gallery) return;
+		if (!gallery || !projects) return;
 		gallery.innerHTML = "";
 		projects.forEach((project) => {
 			const card = document.createElement("div");
 			card.className = "card";
 			card.innerHTML = `
-                <a href="${project.url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-                    <img src="${project.image}" alt="${project.title}" draggable="false">
-                    <h3>${project.title}</h3>
-                    <p>${project.description}</p>
-                </a>
-            `;
+				<a href="${project.url}" target="_blank" rel="noopener noreferrer">
+					<img src="${project.image}" alt="${project.title}" draggable="false">
+					<h3>${project.title}</h3>
+					<p>${project.description}</p>
+				</a>
+			`;
 			gallery.appendChild(card);
 		});
 	}
 
 	function renderDesigns(designs) {
 		const grid = document.querySelector(".designs-grid");
-		if (!grid) return;
+		if (!grid || !designs) return;
 		grid.innerHTML = "";
-
-		if (!designs) return;
-
 		designs.forEach((design) => {
 			const item = document.createElement("div");
 			item.className = "design-item";
@@ -141,22 +136,47 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	}
 
-	// Modal Logic
+	function renderSponsors(sponsors) {
+		const sponsorTrack = document.querySelector(".sponsor-track");
+		if (!sponsorTrack || !sponsors) return;
+		sponsorTrack.innerHTML = "";
+		// 4 copias para loop continuo — translateX(-25%) en CSS
+		for (let i = 0; i < 4; i++) {
+			const group = document.createElement("div");
+			group.className = "sponsor-logos";
+			sponsors.forEach((sponsor) => {
+				const wrapper = document.createElement(sponsor.url ? "a" : "div");
+				if (sponsor.url) {
+					wrapper.href = sponsor.url;
+					wrapper.target = "_blank";
+					wrapper.rel = "noopener noreferrer";
+				}
+				const img = document.createElement("img");
+				img.src = sponsor.image;
+				img.alt = sponsor.name;
+				wrapper.appendChild(img);
+				group.appendChild(wrapper);
+			});
+			sponsorTrack.appendChild(group);
+		}
+	}
+
+	// Modal
 	window.openDesignModal = (design) => {
 		const modal = document.getElementById("designDetailModal");
+		const clientLogo = document.getElementById("modalClientLogo");
+
 		document.getElementById("modalDesignImage").src = design.image;
 		document.getElementById("modalDesignTitle").innerText = design.title;
 		document.getElementById("modalDesignDesc").innerText = design.description;
 		document.getElementById("modalDesignLink").href = design.link;
 
-		const clientLogo = document.getElementById("modalClientLogo");
 		if (design.clientLogo) {
 			clientLogo.src = design.clientLogo;
 			clientLogo.style.display = "block";
 		} else {
 			clientLogo.style.display = "none";
 		}
-
 		modal.style.display = "block";
 	};
 
@@ -164,110 +184,37 @@ document.addEventListener("DOMContentLoaded", function () {
 		document.getElementById("designDetailModal").style.display = "none";
 	};
 
-	function renderSponsors(sponsors) {
-		const sponsorTrack = document.querySelector(".sponsor-track");
-		if (!sponsorTrack) return;
-		sponsorTrack.innerHTML = "";
-		for (let i = 0; i < 4; i++) {
-			const sponsorLogosDiv = document.createElement("div");
-			sponsorLogosDiv.className = "sponsor-logos";
-			sponsors.forEach((sponsor) => {
-				// Create link if URL exists, else div or just img
-				const wrapper = sponsor.url
-					? document.createElement("a")
-					: document.createElement("div");
-				if (sponsor.url) {
-					wrapper.href = sponsor.url;
-					wrapper.target = "_blank";
-					wrapper.style.display = "inline-block"; // Ensure it behaves like block/img
-				}
-
-				const img = document.createElement("img");
-				img.src = sponsor.image;
-				img.alt = sponsor.name;
-
-				wrapper.appendChild(img);
-				sponsorLogosDiv.appendChild(wrapper);
-			});
-			sponsorTrack.appendChild(sponsorLogosDiv);
-		}
-	}
-
-	// --- Improved Gallery Scroll Logic ---
+	// --- Gallery scroll ──────────────────────────────────────────────
 	function initGalleryScroll() {
 		const gallery = document.querySelector(".gallery");
 		if (!gallery) return;
 
-		let scrollInterval;
-		const autoScrollDelay = 3000;
 		let isPaused = false;
 		let isDragging = false;
-		let startX;
-		let scrollLeft;
+		let startX, scrollLeft;
 
-		// --- Auto Scroll Logic ---
-		const startAutoScroll = () => {
-			clearInterval(scrollInterval);
-			scrollInterval = setInterval(() => {
-				if (!isPaused && !isDragging) {
-					// Scroll by one card width approx or smooth constant
-					// Current logic was focusing items. Let's keep it simple: nice smooth scroll
-					// But user wants "carousel".
-					// The previous logic used 'focusedIndex'. Let's adapt that to be more fluid.
-					// Actually, standard auto-scroll (like sponsors) or item-by-item?
-					// Previous code was Item-by-Item (scrollTo). Let's keep that but respectful of Pause.
+		const scrollInterval = setInterval(() => {
+			if (isPaused || isDragging) return;
+			const cards = document.querySelectorAll(".card");
+			if (!cards.length) return;
+			const cardWidth = cards[0].offsetWidth + 20;
+			if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 10) {
+				gallery.scrollTo({ left: 0, behavior: "smooth" });
+			} else {
+				gallery.scrollTo({ left: gallery.scrollLeft + cardWidth, behavior: "smooth" });
+			}
+		}, 3000);
 
-					// However, for Drag-to-Scroll to work well, we shouldn't force snap back immediately.
-					// Let's rely on scroll-snap to handle alignment, and auto-scroll just "nudges" or moves to next.
+		gallery.addEventListener("mouseenter", () => isPaused = true);
+		gallery.addEventListener("mouseleave", () => { isPaused = false; isDragging = false; gallery.classList.remove("active"); });
+		gallery.addEventListener("touchstart", () => isPaused = true);
+		gallery.addEventListener("touchend", () => setTimeout(() => isPaused = false, 2000));
 
-					const cards = document.querySelectorAll(".card");
-					if (cards.length === 0) return;
-
-					const cardWidth = cards[0].offsetWidth + 10; // + gap
-					const currentScroll = gallery.scrollLeft;
-					const nextScroll = currentScroll + cardWidth;
-
-					// If at end, loop back?
-					if (
-						gallery.scrollLeft + gallery.clientWidth >=
-						gallery.scrollWidth - 10
-					) {
-						gallery.scrollTo({ left: 0, behavior: "smooth" });
-					} else {
-						gallery.scrollTo({ left: nextScroll, behavior: "smooth" });
-					}
-				}
-			}, autoScrollDelay);
-		};
-
-		startAutoScroll();
-
-		// --- Interaction events to Pause ---
-		gallery.addEventListener("mouseenter", () => (isPaused = true));
-		gallery.addEventListener("mouseleave", () => {
-			isPaused = false;
-			isDragging = false;
-		});
-
-		gallery.addEventListener("touchstart", () => (isPaused = true));
-		gallery.addEventListener("touchend", () => {
-			// Resume after a moment
-			setTimeout(() => (isPaused = false), 2000);
-		});
-
-		// --- Drag-to-Scroll Implementation ---
 		gallery.addEventListener("mousedown", (e) => {
-			isPaused = true;
-			isDragging = true;
-			gallery.classList.add("active"); // Optional: for cursor styling
+			isPaused = isDragging = true;
+			gallery.classList.add("active");
 			startX = e.pageX - gallery.offsetLeft;
 			scrollLeft = gallery.scrollLeft;
-		});
-
-		gallery.addEventListener("mouseleave", () => {
-			isDragging = false;
-			isPaused = false;
-			gallery.classList.remove("active");
 		});
 
 		gallery.addEventListener("mouseup", () => {
@@ -278,103 +225,73 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		gallery.addEventListener("mousemove", (e) => {
 			if (!isDragging) return;
-			e.preventDefault(); // Prevent text selection
-			const x = e.pageX - gallery.offsetLeft;
-			const walk = (x - startX) * 2; // Scroll-fast factor
-			gallery.scrollLeft = scrollLeft - walk;
+			e.preventDefault();
+			gallery.scrollLeft = scrollLeft - (e.pageX - gallery.offsetLeft - startX) * 2;
 		});
 	}
 
+	// --- FAQ ─────────────────────────────────────────────────────────
 	function initFAQ() {
-		const questions = document.querySelectorAll(".faq-question");
-
-		questions.forEach((question) => {
+		document.querySelectorAll(".faq-question").forEach((question) => {
 			question.addEventListener("click", () => {
-				// Toggle active class on button
-				question.classList.toggle("active");
-
-				// Toggle max-height on answer for animation
-				const answer = question.nextElementSibling;
-				if (question.classList.contains("active")) {
-					answer.style.maxHeight = answer.scrollHeight + "px";
-				} else {
-					answer.style.maxHeight = 0;
-				}
-
-				// Optional: Close others when one is opened (Accordion style)
-				questions.forEach((otherQuestion) => {
-					if (
-						otherQuestion !== question &&
-						otherQuestion.classList.contains("active")
-					) {
-						otherQuestion.classList.remove("active");
-						otherQuestion.nextElementSibling.style.maxHeight = 0;
-					}
+				const isActive = question.classList.contains("active");
+				// Cerrar todos
+				document.querySelectorAll(".faq-question").forEach((q) => {
+					q.classList.remove("active");
+					q.nextElementSibling.style.maxHeight = null;
 				});
+				// Abrir el clickeado si estaba cerrado
+				if (!isActive) {
+					question.classList.add("active");
+					question.nextElementSibling.style.maxHeight =
+						question.nextElementSibling.scrollHeight + "px";
+				}
 			});
 		});
 	}
+
+	// --- Settings ────────────────────────────────────────────────────
 	function initSettings() {
 		const settingsBtn = document.getElementById("settingsBtn");
 		const settingsPopup = document.getElementById("settingsPopup");
 		const hueSlider = document.getElementById("accentHue");
 		const randomBtn = document.getElementById("randomColorBtn");
 
-		if (!settingsBtn || !settingsPopup || !hueSlider || !randomBtn) return;
+		if (!settingsPopup || !hueSlider || !randomBtn) return;
 
-		// Toggle Popup
 		window.toggleSettings = () => {
-			if (settingsPopup.style.display === "block") {
-				settingsPopup.style.display = "none";
-			} else {
-				settingsPopup.style.display = "block";
-			}
+			settingsPopup.style.display =
+				settingsPopup.style.display === "block" ? "none" : "block";
 		};
 
-		settingsBtn.addEventListener("click", (e) => {
-			e.stopPropagation();
-			toggleSettings();
-		});
+		if (settingsBtn) {
+			settingsBtn.addEventListener("click", (e) => {
+				e.stopPropagation();
+				toggleSettings();
+			});
+		}
 
-		// Close when clicking outside
 		document.addEventListener("click", (e) => {
-			if (
-				!settingsPopup.contains(e.target) &&
-				!settingsBtn.contains(e.target)
-			) {
+			if (settingsBtn && !settingsPopup.contains(e.target) && !settingsBtn.contains(e.target)) {
 				settingsPopup.style.display = "none";
 			}
 		});
-
-		// Color Logic using HSL
-		// Current accent color is #a51918 (HSL: ~358, 73%, 37%)
 
 		const updateAccentColor = (hue) => {
-			// Keeping saturation and lightness fixed for consistency, only changing Hue
-			const saturation = "73%";
-			const lightness = "37%";
-			const color = `hsl(${hue}, ${saturation}, ${lightness})`;
-
-			// Secondary light color (approx 95% lightness for pastel effect like #ffe5e2)
+			const color = `hsl(${hue}, 73%, 37%)`;
 			const lightColor = `hsl(${hue}, 100%, 95%)`;
-
-			document.documentElement.style.setProperty("--accent-color", color);
-			document.documentElement.style.setProperty(
-				"--accent-color-light",
-				lightColor
-			);
-
-			// Also update any other hardcoded colors if necessary, but CSS var is best.
+			document.documentElement.style.setProperty("--accent", color);
+			document.documentElement.style.setProperty("--accent-soft", lightColor);
+			document.documentElement.style.setProperty("--accent-glow", `hsla(${hue}, 73%, 57%, 0.35)`);
+			document.documentElement.style.setProperty("--gradient-accent",
+				`linear-gradient(135deg, hsl(${hue}, 73%, 47%), hsl(${hue}, 90%, 65%))`);
 		};
 
-		hueSlider.addEventListener("input", (e) => {
-			updateAccentColor(e.target.value);
-		});
-
+		hueSlider.addEventListener("input", (e) => updateAccentColor(e.target.value));
 		randomBtn.addEventListener("click", () => {
-			const randomHue = Math.floor(Math.random() * 360);
-			hueSlider.value = randomHue;
-			updateAccentColor(randomHue);
+			const hue = Math.floor(Math.random() * 360);
+			hueSlider.value = hue;
+			updateAccentColor(hue);
 		});
 	}
 
