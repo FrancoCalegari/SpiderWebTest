@@ -1,44 +1,136 @@
+/* ══════════════════════════════════════════════════════
+   Spider Web – Responsive & Hamburger Menu
+   ══════════════════════════════════════════════════════ */
 
-/* Para pantallas de hasta 480px (móviles) */
-@media screen and (max-width: 900px) {
-    .site-header nav{
-        padding-top: 1rem;
-        justify-content: center;
-        align-items: center;
-    }
-    header.hero .hero-content {
-        max-width: 800px;
-        height: 32vh;
-        margin: auto;
-        align-items: center;
-        justify-content: center;
+/* ── Hamburger button – hidden on desktop ──────────── */
+.hamburger {
+    display: none;
+    background: none;
+    border: 1px solid var(--border-glass);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition), border-color var(--transition), color var(--transition);
+    flex-shrink: 0;
+}
+
+.hamburger:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent-bright);
+}
+
+/* ── Tablet (900px) ────────────────────────────────── */
+@media (max-width: 900px) {
+
+    /* Show hamburger */
+    .hamburger {
         display: flex;
-        flex-direction: column;
-        gap: 1rem;
-
-        p {
-            padding: 1rem;
-            font-size: 1rem;
-        }
     }
 
-    .hero-image {
-        width: 15rem;
-        height: auto;
-        opacity: 0;
+    /* Header layout: logo left, burger right */
+    .site-header {
+        flex-direction: row !important;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 20px !important;
+        gap: 0 !important;
+    }
+
+    /* Nav: hidden by default – slides down */
+    #main-nav {
+        display: none;
         position: absolute;
-        transition: all 1.5s ease-in-out;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(8, 6, 8, 0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--border-glass);
+        border-bottom: 1px solid var(--border-glass);
+        padding: 16px 0;
+        gap: 0;
+        z-index: 99;
+        animation: navSlideDown 0.3s ease;
+    }
+
+    #main-nav.open {
+        display: flex;
+    }
+
+    #main-nav .nav-link {
+        padding: 14px 28px;
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--border-glass);
+        color: var(--text-secondary) !important;
+        letter-spacing: 1.5px;
+        transition: background var(--transition), color var(--transition);
+    }
+
+    #main-nav .nav-link:last-child {
+        border-bottom: none;
+    }
+
+    #main-nav .nav-link:hover {
+        background: var(--accent-soft);
+        color: var(--text-primary) !important;
+    }
+
+    /* Remove underline animation on mobile */
+    #main-nav .nav-link::after {
+        display: none;
+    }
+
+    /* Hero adjustments */
+    header.hero .hero-content {
+        max-width: 100%;
+        padding: 0 16px;
     }
 }
 
+/* ── Slide-down animation ──────────────────────────── */
+@keyframes navSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-
-@media (max-width: 400px) {
+/* ── Mobile (480px) ────────────────────────────────── */
+@media (max-width: 480px) {
     .gallery {
-        padding: 1rem 1rem 3rem 3rem;
+        padding: 1rem 0.5rem;
+    }
 
+    .textCorreo {
+        font-size: 0.85rem;
     }
-    .textCorreo{
-        font-size: 1rem;
+
+    .about-stats {
+        gap: 28px;
     }
-  }
+
+    .hero-cta {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0 16px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+}

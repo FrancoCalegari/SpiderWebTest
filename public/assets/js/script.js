@@ -297,3 +297,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	initSettings();
 });
+
+// ── Hamburger Menu ────────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+	const btn  = document.getElementById("hamburger-btn");
+	const nav  = document.getElementById("main-nav");
+	if (!btn || !nav) return;
+
+	const openIcon  = "fa-bars";
+	const closeIcon = "fa-xmark";
+
+	function openMenu() {
+		nav.classList.add("open");
+		btn.setAttribute("aria-expanded", "true");
+		btn.querySelector("i").classList.replace(openIcon, closeIcon);
+	}
+
+	function closeMenu() {
+		nav.classList.remove("open");
+		btn.setAttribute("aria-expanded", "false");
+		btn.querySelector("i").classList.replace(closeIcon, openIcon);
+	}
+
+	btn.addEventListener("click", (e) => {
+		e.stopPropagation();
+		nav.classList.contains("open") ? closeMenu() : openMenu();
+	});
+
+	// Cerrar al hacer clic en un enlace
+	nav.querySelectorAll(".nav-link").forEach((link) => {
+		link.addEventListener("click", closeMenu);
+	});
+
+	// Cerrar al hacer clic fuera del header
+	document.addEventListener("click", (e) => {
+		if (!e.target.closest(".site-header")) closeMenu();
+	});
+
+	// Cerrar al hacer resize a escritorio
+	window.addEventListener("resize", () => {
+		if (window.innerWidth > 900) closeMenu();
+	});
+});
