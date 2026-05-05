@@ -328,6 +328,31 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="contact-form-wrapper">
+				<h3 class="form-title">Envíanos un Mensaje</h3>
+				<form id="contactForm" class="contact-form">
+					<div class="form-group">
+						<input type="text" id="contactName" name="name" placeholder="Tu Nombre" required />
+					</div>
+					<div class="form-group">
+						<input type="email" id="contactEmail" name="email" placeholder="Tu Correo Electrónico" required />
+					</div>
+					<div class="form-group">
+						<input type="text" id="contactSubject" name="subject" placeholder="Asunto" />
+					</div>
+					<div class="form-group">
+						<textarea id="contactMessage" name="message" rows="5" placeholder="Tu Mensaje..." required></textarea>
+					</div>
+					<div class="form-group">
+						<button type="submit" id="contactSubmit" class="btn-primary btn-submit">
+							<span>Enviar Mensaje</span>
+							<i class="fa-solid fa-paper-plane"></i>
+						</button>
+					</div>
+					<div id="formMessage" class="form-message"></div>
+				</form>
+			</div>
 		</section>
 		<footer class="site-footer">
 			<div class="footer-container">

@@ -445,6 +445,54 @@ app.delete("/api/designs/:id", async (req, res) => {
 	}
 });
 
+// ─── CONTACT FORM (Nodemailer) ───────────────────────────────────────────────
+const nodemailer = require("nodemailer");
+
+app.post("/api/contact", async (req, res) => {
+	try {
+		const { name, email, subject, message } = req.body;
+		if (!name || !email || !message) {
+			return res.status(400).json({ error: "Nombre, email y mensaje son obligatorios." });
+		}
+
+		const transporter = nodemailer.createTransport({
+			host: process.env.SMTP_HOST,
+			port: process.env.SMTP_PORT,
+			secure: process.env.SMTP_PORT == 465, 
+			auth: {
+				user: process.env.SMTP_USER,
+				pass: process.env.SMTP_PASS,
+			},
+		});
+
+		const mailOptions = {
+			from: `"${name}" <${process.env.SMTP_USER}>`, 
+			replyTo: email,
+			to: process.env.ADMIN_MAIL,
+			subject: `[Contacto SpiderWeb] ${subject || "Nuevo mensaje"}`,
+			text: `Has recibido un nuevo mensaje de contacto en SpiderWeb.\n\nNombre: ${name}\nEmail: ${email}\nAsunto: ${subject}\n\nMensaje:\n${message}`,
+			html: `
+				<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+					<h2 style="color: #9b1a2a;">Nuevo mensaje de contacto</h2>
+					<p><strong>Nombre:</strong> ${name}</p>
+					<p><strong>Email:</strong> ${email}</p>
+					<p><strong>Asunto:</strong> ${subject || "Sin asunto"}</p>
+					<p><strong>Mensaje:</strong></p>
+					<blockquote style="border-left: 4px solid #9b1a2a; padding-left: 10px; margin-left: 0; background: #f9f9f9; padding: 10px;">
+						${message.replace(/\n/g, "<br>")}
+					</blockquote>
+				</div>
+			`
+		};
+
+		await transporter.sendMail(mailOptions);
+		res.status(200).json({ success: true, message: "Mensaje enviado correctamente." });
+	} catch (err) {
+		console.error("Error al enviar email:", err);
+		res.status(500).json({ error: "Error al enviar el mensaje. Intenta nuevamente más tarde." });
+	}
+});
+
 // ─── Error handler para Multer ────────────────────────────────────────────────
 app.use((err, req, res, next) => {
 	if (err.code === "LIMIT_FILE_SIZE") {

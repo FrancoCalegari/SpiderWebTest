@@ -247,6 +247,24 @@ document.addEventListener("DOMContentLoaded", function () {
 		}, true);
 	}
 
+	// --- Scroll Reveal ───────────────────────────────────────────────
+	function initScrollReveal() {
+		const reveals = document.querySelectorAll(".reveal");
+		const observerOptions = {
+			threshold: 0.15,
+		};
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("visible");
+				}
+			});
+		}, observerOptions);
+
+		reveals.forEach((el) => observer.observe(el));
+	}
+
 	// --- FAQ ─────────────────────────────────────────────────────────
 	function initFAQ() {
 		document.querySelectorAll(".faq-question").forEach((question) => {
@@ -264,6 +282,66 @@ document.addEventListener("DOMContentLoaded", function () {
 						question.nextElementSibling.scrollHeight + "px";
 				}
 			});
+		});
+	}
+
+	// --- Contact Form ────────────────────────────────────────────────
+	function initContactForm() {
+		const form = document.getElementById("contactForm");
+		const messageDiv = document.getElementById("formMessage");
+		const submitBtn = document.getElementById("contactSubmit");
+
+		if (!form) return;
+
+		form.addEventListener("submit", async (e) => {
+			e.preventDefault();
+			
+			// Disable button and show loading state
+			const originalBtnText = submitBtn.innerHTML;
+			submitBtn.disabled = true;
+			submitBtn.innerHTML = `<span>Enviando...</span><i class="fa-solid fa-spinner fa-spin"></i>`;
+			messageDiv.className = "form-message";
+			messageDiv.innerText = "";
+
+			const formData = {
+				name: form.name.value,
+				email: form.email.value,
+				subject: form.subject.value,
+				message: form.message.value
+			};
+
+			try {
+				const response = await fetch("/api/contact", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(formData)
+				});
+
+				const result = await response.json();
+
+				if (response.ok) {
+					messageDiv.classList.add("success");
+					messageDiv.innerText = result.message || "¡Mensaje enviado con éxito!";
+					form.reset();
+				} else {
+					messageDiv.classList.add("error");
+					messageDiv.innerText = result.error || "Ocurrió un error al enviar el mensaje.";
+				}
+			} catch (err) {
+				console.error("Error submitting contact form:", err);
+				messageDiv.classList.add("error");
+				messageDiv.innerText = "Error de red. Por favor, intenta de nuevo.";
+			} finally {
+				// Restore button
+				submitBtn.disabled = false;
+				submitBtn.innerHTML = originalBtnText;
+
+				// Clear message after 5 seconds
+				setTimeout(() => {
+					messageDiv.innerText = "";
+					messageDiv.className = "form-message";
+				}, 5000);
+			}
 		});
 	}
 
@@ -313,6 +391,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	initSettings();
+	initContactForm();
+	initFAQ();
+	initScrollReveal();
 });
 
 // ── Hamburger Menu ────────────────────────────────────────────────────
