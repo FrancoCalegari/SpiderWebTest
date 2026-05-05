@@ -657,12 +657,28 @@ section h2 {
 }
 
 .designs-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	display: flex;
+	overflow-x: auto;
 	gap: 20px;
 	padding: 20px;
-	max-width: 1200px;
+	max-width: 1400px;
 	margin: 0 auto;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	align-items: center;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+	cursor: grab;
+}
+
+.designs-grid::-webkit-scrollbar {
+	display: none;
+}
+
+.designs-grid.active {
+	cursor: grabbing;
+	scroll-snap-type: none;
+	scroll-behavior: auto;
 }
 
 .design-item {
@@ -672,6 +688,10 @@ section h2 {
 	height: 300px;
 	position: relative;
 	transition: transform var(--transition), box-shadow var(--transition);
+	flex-shrink: 0;
+	min-width: 300px;
+	max-width: 300px;
+	scroll-snap-align: start;
 }
 
 .design-item::after {
@@ -826,6 +846,13 @@ section h2 {
 	margin: 0 auto;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
+	cursor: grab;
+}
+
+.gallery.active {
+	cursor: grabbing;
+	scroll-snap-type: none;
+	scroll-behavior: auto;
 }
 
 .gallery::-webkit-scrollbar {
@@ -1454,7 +1481,16 @@ section h2 {
 		padding: 16px 8px;
 	}
 
+	.designs-grid {
+		padding: 16px 8px;
+	}
+
 	.card {
+		min-width: 260px;
+		max-width: 260px;
+	}
+
+	.design-item {
 		min-width: 260px;
 		max-width: 260px;
 	}

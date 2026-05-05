@@ -96,7 +96,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			renderProjects(data.projects);
 			renderSponsors(data.sponsors);
 			renderDesigns(data.designs);
-			initGalleryScroll();
+			initCarouselScroll(".gallery", ".gallery .card");
+			initCarouselScroll(".designs-grid", ".designs-grid .design-item");
 			initFAQ();
 		})
 		.catch((err) => {
@@ -113,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			const card = document.createElement("div");
 			card.className = "card";
 			card.innerHTML = `
-				<a href="${project.url}" target="_blank" rel="noopener noreferrer">
+				<a href="${project.url}" target="_blank" rel="noopener noreferrer" draggable="false">
 					<img src="${project.image}" alt="${project.title}" draggable="false">
 					<h3>${project.title}</h3>
 					<p>${project.description}</p>
@@ -130,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		designs.forEach((design) => {
 			const item = document.createElement("div");
 			item.className = "design-item";
-			item.innerHTML = `<img src="${design.image}" alt="${design.title}">`;
+			item.innerHTML = `<img src="${design.image}" alt="${design.title}" draggable="false">`;
 			item.onclick = () => openDesignModal(design);
 			grid.appendChild(item);
 		});
@@ -184,18 +185,19 @@ document.addEventListener("DOMContentLoaded", function () {
 		document.getElementById("designDetailModal").style.display = "none";
 	};
 
-	// --- Gallery scroll ──────────────────────────────────────────────
-	function initGalleryScroll() {
-		const gallery = document.querySelector(".gallery");
+	// --- Gallery / Carousel scroll ──────────────────────────────────────────────
+	function initCarouselScroll(selector, cardSelector) {
+		const gallery = document.querySelector(selector);
 		if (!gallery) return;
 
 		let isPaused = false;
 		let isDragging = false;
 		let startX, scrollLeft;
+		let dragged = false;
 
 		const scrollInterval = setInterval(() => {
 			if (isPaused || isDragging) return;
-			const cards = document.querySelectorAll(".card");
+			const cards = document.querySelectorAll(cardSelector);
 			if (!cards.length) return;
 			const cardWidth = cards[0].offsetWidth + 20;
 			if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 10) {
@@ -206,12 +208,17 @@ document.addEventListener("DOMContentLoaded", function () {
 		}, 3000);
 
 		gallery.addEventListener("mouseenter", () => isPaused = true);
-		gallery.addEventListener("mouseleave", () => { isPaused = false; isDragging = false; gallery.classList.remove("active"); });
+		gallery.addEventListener("mouseleave", () => { 
+			isPaused = false; 
+			isDragging = false; 
+			gallery.classList.remove("active"); 
+		});
 		gallery.addEventListener("touchstart", () => isPaused = true);
 		gallery.addEventListener("touchend", () => setTimeout(() => isPaused = false, 2000));
 
 		gallery.addEventListener("mousedown", (e) => {
 			isPaused = isDragging = true;
+			dragged = false;
 			gallery.classList.add("active");
 			startX = e.pageX - gallery.offsetLeft;
 			scrollLeft = gallery.scrollLeft;
@@ -226,8 +233,18 @@ document.addEventListener("DOMContentLoaded", function () {
 		gallery.addEventListener("mousemove", (e) => {
 			if (!isDragging) return;
 			e.preventDefault();
-			gallery.scrollLeft = scrollLeft - (e.pageX - gallery.offsetLeft - startX) * 2;
+			const x = e.pageX - gallery.offsetLeft;
+			const walk = (x - startX) * 2;
+			if (Math.abs(walk) > 5) dragged = true;
+			gallery.scrollLeft = scrollLeft - walk;
 		});
+
+		gallery.addEventListener("click", (e) => {
+			if (dragged) {
+				e.preventDefault();
+				e.stopPropagation();
+			}
+		}, true);
 	}
 
 	// --- FAQ ─────────────────────────────────────────────────────────
