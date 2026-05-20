@@ -301,7 +301,7 @@ section {
 .hero {
 	position: relative;
 	background:
-		linear-gradient(160deg, rgba(8,6,8,0.82) 0%, rgba(24,5,8,0.75) 45%, rgba(8,6,8,0.88) 100%),
+		linear-gradient(160deg, rgba(8,6,8,0.55) 0%, rgba(24,5,8,0.42) 45%, rgba(8,6,8,0.62) 100%),
 		url('../img/fondo.jpg') center center / cover no-repeat;
 	min-height: 92vh;
 	display: flex;
@@ -838,7 +838,7 @@ section h2 {
 	display: flex;
 	overflow-x: auto;
 	gap: 20px;
-	padding: 24px;
+	padding: 24px 24px 8px;
 	scroll-snap-type: x mandatory;
 	scroll-behavior: smooth;
 	align-items: center;
@@ -846,17 +846,63 @@ section h2 {
 	margin: 0 auto;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
-	cursor: grab;
-}
-
-.gallery.active {
-	cursor: grabbing;
-	scroll-snap-type: none;
-	scroll-behavior: auto;
+	cursor: default;
 }
 
 .gallery::-webkit-scrollbar {
 	display: none;
+}
+
+/* Scrollbar deslizable personalizada debajo del carrusel */
+.gallery-scrollbar-wrap {
+	max-width: 1400px;
+	margin: 0 auto 8px;
+	padding: 0 24px;
+}
+
+.gallery-scrollbar {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 6px;
+	border-radius: 3px;
+	background: rgba(255,255,255,0.08);
+	outline: none;
+	cursor: pointer;
+	accent-color: var(--accent-bright);
+	transition: opacity var(--transition);
+	opacity: 0.7;
+}
+
+.gallery-scrollbar:hover {
+	opacity: 1;
+}
+
+.gallery-scrollbar::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 40px;
+	height: 6px;
+	border-radius: 3px;
+	background: var(--gradient-accent);
+	cursor: pointer;
+	box-shadow: 0 0 8px var(--accent-glow);
+	transition: width 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-scrollbar::-webkit-slider-thumb:hover {
+	width: 52px;
+	box-shadow: 0 0 14px var(--accent-glow);
+}
+
+.gallery-scrollbar::-moz-range-thumb {
+	width: 40px;
+	height: 6px;
+	border-radius: 3px;
+	background: var(--gradient-accent);
+	cursor: pointer;
+	border: none;
+	box-shadow: 0 0 8px var(--accent-glow);
 }
 
 .card {
@@ -912,7 +958,7 @@ section h2 {
 
 /* ── Sponsors Carousel ────────────────────────────────────────────── */
 .sponsors {
-	background: var(--bg-dark);
+	background: #1a1118;
 	overflow: hidden;
 	padding: 60px 20px;
 }

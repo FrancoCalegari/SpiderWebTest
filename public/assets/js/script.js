@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			renderProjects(data.projects);
 			renderSponsors(data.sponsors);
 			renderDesigns(data.designs);
-			initCarouselScroll(".gallery", ".gallery .card");
+			initProjectsScrollbar();
 			initCarouselScroll(".designs-grid", ".designs-grid .design-item");
 			initFAQ();
 		})
@@ -184,6 +184,35 @@ document.addEventListener("DOMContentLoaded", function () {
 	window.closeDesignModal = () => {
 		document.getElementById("designDetailModal").style.display = "none";
 	};
+
+	// --- Gallery Scrollbar (Proyectos Destacados) ────────────────────
+	function initProjectsScrollbar() {
+		const gallery = document.getElementById("projectsGallery");
+		const scrollbar = document.getElementById("projectsScrollbar");
+		if (!gallery || !scrollbar) return;
+
+		// Sync scrollbar max with actual scrollable width
+		function updateScrollbarMax() {
+			const maxScroll = gallery.scrollWidth - gallery.clientWidth;
+			scrollbar.max = maxScroll > 0 ? maxScroll : 0;
+		}
+
+		// Update scrollbar thumb position when gallery scrolls
+		gallery.addEventListener("scroll", () => {
+			scrollbar.value = gallery.scrollLeft;
+		});
+
+		// Scroll gallery when user drags the scrollbar
+		scrollbar.addEventListener("input", () => {
+			gallery.scrollTo({ left: Number(scrollbar.value), behavior: "smooth" });
+		});
+
+		// Recalculate on resize and after images load
+		window.addEventListener("resize", updateScrollbarMax);
+		gallery.addEventListener("scroll", updateScrollbarMax, { once: true });
+		// Delay initial calc until cards have rendered
+		setTimeout(updateScrollbarMax, 500);
+	}
 
 	// --- Gallery / Carousel scroll ──────────────────────────────────────────────
 	function initCarouselScroll(selector, cardSelector) {
