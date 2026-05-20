@@ -105,9 +105,9 @@ app.get("/api/images/:id", async (req, res) => {
 	}
 });
 
-// API general auth (solo para escritura)
+// API general auth (solo para escritura, excepto /api/contact que es público)
 app.use("/api", (req, res, next) => {
-	if (req.method !== "GET") return isAuthenticated(req, res, next);
+	if (req.method !== "GET" && req.path !== "/contact") return isAuthenticated(req, res, next);
 	next();
 });
 
