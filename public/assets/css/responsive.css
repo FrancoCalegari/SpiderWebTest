@@ -250,6 +250,10 @@
     .contact-logo {
         width: 40vw;
     }
+
+    div .logoContainer h1 {
+        font-size: larger;
+    }
 }
 
 @media (max-width: 480px) {
