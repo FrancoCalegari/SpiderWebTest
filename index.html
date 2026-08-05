@@ -11,7 +11,7 @@
 	<meta name="author" content="SpiderWeb ARG" />
 	<meta name="robots" content="index, follow" />
 
-	<!-- Open Graph para Facebook -->
+	<!-- Open Graph -->
 	<meta property="og:title" content="SpiderWeb ARG - Programación, Diseño y Creatividad Digital" />
 	<meta property="og:description"
 		content="Especialistas en programación, diseño gráfico, edición de video y manejo de redes de marca. Desde Mendoza, Argentina, al mundo." />
@@ -27,75 +27,123 @@
 	<meta name="twitter:image" content="https://francocalegari.github.io/SpiderWebTest/assets/img/Webv1.png" />
 
 	<title>SpiderWeb ARG - Programación, Diseño y Creatividad Digital</title>
+
+	<!-- Google Fonts — cargar PRIMERO para evitar FOUT -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/svg+xml" href="./assets/img/logo.svg" />
+
+	<!-- Tema: cargar PRIMERO para evitar FOUC -->
+	<script src="/theme.js"></script>
+
+	<!-- CSS -->
 	<link rel="stylesheet" href="./assets/css/styletest.css" />
 	<link rel="stylesheet" href="./assets/css/responsive.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-	<link rel="icon" type="image/svg+xml" href="./assets/img/logo.svg">
 </head>
 
 <body>
+	<!-- Scanlines overlay (efecto táctico sutil) -->
+	<div class="sw-scanlines"></div>
+
+	<!-- ── Intro Splash ──────────────────────────────────────────── -->
 	<div class="animation-container">
 		<img src="./assets/img/logo.svg" alt="Logo" id="logo" />
 		<h1 id="text">SpiderWeb ARG</h1>
+		<span class="splash-tag">[ Mendoza · Argentina ]</span>
 	</div>
+
+	<!-- ── Main Content ──────────────────────────────────────────── -->
 	<div class="main-content" id="main-content">
-		<!-- Header with Logo and Navigation -->
-		<header class="site-header">
+
+		<!-- ── Header / Navbar ─────────────────────────────────── -->
+		<header class="site-header" id="site-header">
 			<div class="logoContainer">
 				<img src="./assets/img/logo.svg" alt="Logo SpiderWeb ARG" />
-				<h1>SpiderWeb ARG</h1>
+				<span>SpiderWeb ARG</span>
 			</div>
 			<button class="hamburger" id="hamburger-btn" aria-label="Abrir menú" aria-expanded="false">
 				<i class="fa-solid fa-bars"></i>
 			</button>
 			<nav id="main-nav">
 				<a href="#services" class="nav-link">Servicios</a>
+				<span class="nav-sep"></span>
+				<a href="#projects" class="nav-link">Proyectos</a>
+				<span class="nav-sep"></span>
+				<a href="#about" class="nav-link">Nosotros</a>
+				<span class="nav-sep"></span>
 				<a href="#contact" class="nav-link">Contacto</a>
-				<a href="#about" class="nav-link">Sobre Nosotros</a>
+				<!-- theme.js inyecta aquí el botón toggle -->
 			</nav>
 		</header>
 
-		<header class="hero">
-			<div class="hero-content">
+		<!-- ── Hero ────────────────────────────────────────────── -->
+		<header class="hero" id="hero">
+			<!-- HUD corners -->
+			<div class="hud-corner hud-tl"><div class="hud-line h"></div><div class="hud-line v"></div></div>
+			<div class="hud-corner hud-tr" style="transform:scaleX(-1)"><div class="hud-line h"></div><div class="hud-line v"></div></div>
+			<div class="hud-corner hud-bl" style="transform:scaleY(-1)"><div class="hud-line h"></div><div class="hud-line v"></div></div>
+			<div class="hud-corner hud-br" style="transform:scale(-1)"><div class="hud-line h"></div><div class="hud-line v"></div></div>
+
+
+			<div class="hero-content reveal stagger-1">
+				<img src="./assets/img/logo.svg" alt="SpiderWeb ARG Logo" class="hero-logo" />
 				<h1>Tu visión,<br /><span class="hero-accent">nuestra red.</span></h1>
-				<p class="hero-typewriter">Programación · Diseño Gráfico · Edición de Video · Redes de Marca</p>
+				<p class="hero-typewriter"><span id="typewriter-span"></span><span class="typewriter-cursor">|</span></p>
 				<p class="hero-sub">Impulsamos tu marca hacia el mundo digital, con soluciones de primer nivel.</p>
 				<div class="hero-cta">
-					<a href="#services" class="btn-primary">Nuestros Servicios</a>
-					<a href="#contact" class="btn-secondary">Contactanos</a>
+					<a href="#services" class="btn-primary"><i class="fa-solid fa-spider"></i> Nuestros Servicios</a>
+					<a href="#contact" class="btn-secondary"><i class="fa-solid fa-paper-plane"></i> Contactanos</a>
 				</div>
 			</div>
-			<!--
-			<div class="hero-logo-wrap">
-				<img src="./assets/img/logo.svg" alt="Spider Web Logo" class="hero-center-logo" />
+
+			<div class="hero-metrics reveal stagger-2">
+				<div class="metric-item">
+					<div class="metric-val">100%</div>
+					<div class="metric-label">Personalizado</div>
+				</div>
+				<div class="metric-divider"></div>
+				<div class="metric-item">
+					<div class="metric-val">4+</div>
+					<div class="metric-label">Servicios</div>
+				</div>
+				<div class="metric-divider"></div>
+				<div class="metric-item">
+					<div class="metric-val"><i class="fa-solid fa-globe" style="color:var(--red)"></i></div>
+					<div class="metric-label">Global</div>
+				</div>
 			</div>
-			-->
 		</header>
 
-		<!-- Servicios Section -->
+		<!-- ── Servicios Section ─────────────────────────────── -->
 		<section id="services" class="services-section">
-			<h2>Nuestros Servicios</h2>
+			<h2>Nuestros <span class="accent">Servicios</span></h2>
 			<p class="section-subtitle">Soluciones digitales completas para llevar tu marca al siguiente nivel</p>
 			<div class="services-carousel">
-				<div class="service-card">
+				<div class="service-card reveal stagger-1">
 					<div class="service-icon"><i class="fa-solid fa-code"></i></div>
 					<h3>Programación Web</h3>
 					<p>Sitios y aplicaciones a medida con MongoDB, Node.js, HTML, CSS, JavaScript y PHP.</p>
-					<img src="./assets/img/recurses/capturasTEst/img2.png" alt="Programación Web" />
+					<img src="./assets/img/recurses/capturasTEst/img2.png" alt="Programación Web" loading="lazy" />
 				</div>
-				<div class="service-card">
+				<div class="service-card reveal stagger-2">
 					<div class="service-icon"><i class="fa-solid fa-pen-ruler"></i></div>
 					<h3>Diseño Gráfico</h3>
 					<p>Identidad visual, logos y material gráfico que comunican la esencia de tu marca.</p>
-					<img src="./assets/img/recurses/capturasTEst/img3.png" alt="Diseño Gráfico" />
+					<img src="./assets/img/recurses/capturasTEst/img3.png" alt="Diseño Gráfico" loading="lazy" />
 				</div>
-				<div class="service-card">
+				<div class="service-card reveal stagger-3">
 					<div class="service-icon"><i class="fa-solid fa-film"></i></div>
 					<h3>Edición de Video y Publicidad</h3>
 					<p>Flyers, videos publicitarios y contenido audiovisual que impactan a tu audiencia.</p>
-					<img src="./assets/img/recurses/capturasTEst/instagramn1.png" alt="Edición de Video y Publicidad" />
+					<img src="./assets/img/recurses/capturasTEst/instagramn1.png" alt="Edición de Video y Publicidad" loading="lazy" />
 				</div>
-				<div class="service-card">
+				<div class="service-card reveal stagger-4">
 					<div class="service-icon"><i class="fa-solid fa-hashtag"></i></div>
 					<h3>Redes de Marca</h3>
 					<p>Gestión y estrategia de redes sociales para posicionar tu marca y hacer crecer tu comunidad.</p>
@@ -103,20 +151,19 @@
 			</div>
 		</section>
 
-
-		<!-- Designs Section -->
+		<!-- ── Designs Section ───────────────────────────────── -->
 		<section id="designs" class="designs">
-			<h2>Diseños y Publicidad</h2>
+			<h2>Diseños y <span class="accent">Publicidad</span></h2>
 			<div class="designs-grid">
 				<!-- Contenido dinámico -->
 			</div>
 		</section>
 
-		<!-- Proyectos Destacados Section -->
+		<!-- ── Proyectos Destacados Section ─────────────────── -->
 		<section id="projects" class="projects">
-			<h2>Proyectos Destacados</h2>
+			<h2>Proyectos <span class="accent">Destacados</span></h2>
 			<div class="gallery" id="projectsGallery">
-				<!-- Los proyectos se cargarán dinámicamente aquí -->
+				<!-- Los proyectos se cargarán dinámicamente -->
 			</div>
 			<div class="gallery-scrollbar-wrap">
 				<input type="range" class="gallery-scrollbar" id="projectsScrollbar" min="0" max="100" value="0"
@@ -125,18 +172,19 @@
 		</section>
 		<script src="./assets/js/script.js"></script>
 
-		<!-- Sponsors Section -->
+		<!-- ── Sponsors Section ─────────────────────────────── -->
 		<section id="sponsors" class="sponsors">
-			<h2>Nuestros Clientes</h2>
+			<h2>Nuestros <span class="accent">Clientes</span></h2>
 			<div class="carousel">
 				<div class="sponsor-track">
-					<!-- Los sponsors se cargarán dinámicamente aquí -->
+					<!-- Los sponsors se cargarán dinámicamente -->
 				</div>
 			</div>
 		</section>
-		<!-- FAQ Section -->
+
+		<!-- ── FAQ Section ──────────────────────────────────── -->
 		<section id="faq" class="faq-section">
-			<h2>Preguntas Frecuentes</h2>
+			<h2>Preguntas <span class="accent">Frecuentes</span></h2>
 			<div class="faq-container">
 				<div class="faq-item">
 					<button class="faq-question">
@@ -237,7 +285,7 @@
 					</button>
 					<div class="faq-answer">
 						<p>
-							Estamos ubicados en Mendoza, Argentina, ​​pero colaboramos con clientes
+							Estamos ubicados en Mendoza, Argentina, pero colaboramos con clientes
 							de todo el mundo. Según los requisitos del proyecto, ofrecemos
 							colaboración tanto presencial como remota.
 						</p>
@@ -260,23 +308,24 @@
 			</div>
 		</section>
 
-		<!-- Sobre Nosotros Section -->
+		<!-- ── Sobre Nosotros Section ────────────────────────── -->
 		<section id="about" class="about-section">
 			<div class="about-inner">
-				<h2>De Mendoza al mundo</h2>
-				<p class="about-text">Nos especializamos en programación, diseño gráfico, edición de video y manejo de
+				<div class="about-badge reveal">[ De Mendoza al mundo ]</div>
+				<h2 class="reveal stagger-1">Sobre <span style="background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Nosotros</span></h2>
+				<p class="about-text reveal stagger-2">Nos especializamos en programación, diseño gráfico, edición de video y manejo de
 					redes de marca, ofreciendo soluciones integrales que transforman la presencia digital de nuestros
 					clientes.</p>
 				<div class="about-stats">
-					<div class="stat-item">
+					<div class="stat-item reveal stagger-1">
 						<span class="stat-number">100%</span>
 						<span class="stat-label">Proyectos Personalizados</span>
 					</div>
-					<div class="stat-item">
+					<div class="stat-item reveal stagger-2">
 						<span class="stat-number">4+</span>
 						<span class="stat-label">Servicios Especializados</span>
 					</div>
-					<div class="stat-item">
+					<div class="stat-item reveal stagger-3">
 						<span class="stat-number stat-icon"><i class="fa-solid fa-globe"></i></span>
 						<span class="stat-label">Alcance Global</span>
 					</div>
@@ -284,16 +333,18 @@
 			</div>
 		</section>
 
-		<!-- Contacto Section -->
+		<!-- ── Contacto Section ──────────────────────────────── -->
 		<section id="contact" class="contact">
-			<h2>Contacto</h2>
+			<h2>Hablemos de tu <span class="accent">Proyecto</span></h2>
+			<p class="section-subtitle">Nuestro equipo está listo para escuchar tu idea</p>
+
 			<div class="contactcardcontainer">
 
 				<!-- Card: Franco Calegari -->
-				<div class="contactcard">
+				<div class="contactcard reveal stagger-1">
 					<div class="card-photo-section">
 						<img src="./assets/img/recurses/logos/franco_portrait.png" alt="Franco Calegari"
-							class="contact-photo">
+							class="contact-photo" loading="lazy" />
 					</div>
 					<div class="card-info-section">
 						<h3 class="card-name">Franco Calegari</h3>
@@ -321,9 +372,9 @@
 				</div>
 
 				<!-- Card: Spider Web (empresa) -->
-				<div class="contactcard spiderweb-card">
+				<div class="contactcard spiderweb-card reveal stagger-2">
 					<div class="card-photo-section card-photo-logo">
-						<img src="./assets/img/recurses/logos/SpiderLogo.jpg" alt="Spider Web" class="contact-logo">
+						<img src="./assets/img/recurses/logos/SpiderLogo.jpg" alt="Spider Web" class="contact-logo" loading="lazy" />
 					</div>
 					<div class="card-info-section">
 						<h3 class="card-name">Spider Web</h3>
@@ -344,13 +395,13 @@
 				</div>
 
 				<!-- Card: Gabo-Dev -->
-				<div class="contactcard">
+				<div class="contactcard reveal stagger-3">
 					<div class="card-photo-section">
-						<img src="./assets/img/recurses/logos/gabo_portrait.png" alt="Gabo-Dev" class="contact-photo">
+						<img src="./assets/img/recurses/logos/gabo_portrait.png" alt="Gabo-Dev" class="contact-photo" loading="lazy" />
 					</div>
 					<div class="card-info-section">
 						<h3 class="card-name">Gabo-Dev</h3>
-						<p class="card-role">Designer & Video Editor</p>
+						<p class="card-role">Designer &amp; Video Editor</p>
 						<div class="card-tags">
 							<span class="skill-tag">Diseño Gráfico</span>
 							<span class="skill-tag">Edición Video</span>
@@ -374,7 +425,7 @@
 
 			</div>
 
-			<div class="contact-form-wrapper">
+			<div class="contact-form-wrapper reveal">
 				<h3 class="form-title">Envíanos un Mensaje</h3>
 				<form id="contactForm" class="contact-form">
 					<div class="form-group">
@@ -401,27 +452,28 @@
 				</form>
 			</div>
 		</section>
+
+		<!-- ── Footer ────────────────────────────────────────── -->
 		<footer class="site-footer">
 			<div class="footer-container">
 				<div class="footer-section">
 					<h3>Contacto</h3>
 					<ul>
 						<li class="textCorreo">
-							Correo: officialspiderwebdesign@gmail.com
+							<i class="fa-solid fa-envelope" style="color:var(--red);margin-right:6px"></i>
+							officialspiderwebdesign@gmail.com
 						</li>
 						<li>
-							Instagram:
+							<i class="fa-brands fa-instagram" style="color:var(--red);margin-right:6px"></i>
 							<a href="https://www.instagram.com/spiderweb.arg/" target="_blank">@spiderweb.arg</a>
 						</li>
-						<li>Correo Gabriel Reina: gabodev240402@gmail.com</li>
-						<li>Correo Franco Calegari: francocalegari55@gmail.com</li>
 						<li>
-							GitHub Gabriel Reina:
-							<a href="https://github.com/GaboDev24" target="_blank">github.com/GaboDev24</a>
+							<i class="fa-brands fa-github" style="color:var(--red);margin-right:6px"></i>
+							<a href="https://github.com/GaboDev24" target="_blank">GaboDev24</a>
 						</li>
 						<li>
-							GitHub Franco Calegari:
-							<a href="https://github.com/FrancoCalegari" target="_blank">github.com/FrancoCalegari</a>
+							<i class="fa-brands fa-github" style="color:var(--red);margin-right:6px"></i>
+							<a href="https://github.com/FrancoCalegari" target="_blank">FrancoCalegari</a>
 						</li>
 					</ul>
 				</div>
@@ -439,31 +491,36 @@
 				</div>
 
 				<div class="footer-logo">
-					<img src="./assets/img/logo.svg" alt="Logo SpiderWeb" style="filter: brightness(0) invert(1)" />
+					<img src="./assets/img/logo.svg" alt="Logo SpiderWeb" />
+					<div class="footer-status">
+						<span class="sw-pulse"></span>
+						Sistemas operativos
+					</div>
 					<p>SpiderWeb ARG &copy; 2026</p>
 				</div>
-				<div class="footer-settings">
 
-				</div>
-			</div>
-
-			<!-- Settings Popup -->
-			<div id="settingsPopup" class="settings-popup">
-				<div class="settings-header">
-					<h4>Personalizar</h4>
-					<span class="close-settings" onclick="toggleSettings()">&times;</span>
-				</div>
-				<div class="settings-body">
-					<label for="accentHue">Color de Acento</label>
-					<input type="range" id="accentHue" min="0" max="360" value="0" class="hue-slider" />
-					<button id="randomColorBtn" class="random-btn">
-						Color Aleatorio
-					</button>
+				<div class="footer-settings" id="footer-settings-area">
+					<!-- Settings popup -->
+					<div id="settingsPopup" class="settings-popup">
+						<div class="settings-header">
+							<h4>Personalizar</h4>
+							<span class="close-settings" onclick="toggleSettings()">&times;</span>
+						</div>
+						<div class="settings-body">
+							<label for="accentHue">Color de Acento</label>
+							<input type="range" id="accentHue" min="0" max="360" value="0" class="hue-slider" />
+							<button id="randomColorBtn" class="random-btn">
+								Color Aleatorio
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</footer>
-	</div>
-	<!-- Design Modal -->
+
+	</div><!-- /main-content -->
+
+	<!-- ── Design Modal ──────────────────────────────────────── -->
 	<div id="designDetailModal" class="design-modal">
 		<span class="close-modal" onclick="closeDesignModal()">&times;</span>
 		<div class="design-modal-content">
@@ -475,12 +532,68 @@
 					<img id="modalClientLogo" src="" alt="Client Logo" class="client-logo-img" />
 					<h3 id="modalDesignTitle"></h3>
 				</div>
-				<!-- <h4>Cliente: <span id="modalClientName"></span></h4> -->
 				<p id="modalDesignDesc"></p>
-				<a id="modalDesignLink" href="#" target="_blank" class="design-link-btn">Ver Publicación</a>
+				<a id="modalDesignLink" href="#" target="_blank" class="design-link-btn">
+					<i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Publicación
+				</a>
 			</div>
 		</div>
 	</div>
+
+	<!-- ── Typewriter script inline ──────────────────────────── -->
+	<script>
+		(function () {
+			const phrases = [
+				'Programación Web',
+				'Diseño Gráfico',
+				'Edición de Video',
+				'Redes de Marca'
+			];
+			let pi = 0, ci = 0, del = false;
+			const el = document.getElementById('typewriter-span');
+			if (!el) return;
+
+			function type() {
+				const phrase = phrases[pi];
+				if (!del) {
+					ci++;
+					el.textContent = phrase.slice(0, ci);
+					if (ci === phrase.length) { del = true; setTimeout(type, 1800); return; }
+				} else {
+					ci--;
+					el.textContent = phrase.slice(0, ci);
+					if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; }
+				}
+				setTimeout(type, del ? 55 : 85);
+			}
+			// Start after splash
+			setTimeout(type, 1400);
+		})();
+	</script>
+
+	<!-- ── Scrolled & Logo visibility on header ────────────── -->
+	<script>
+		(function () {
+			const header = document.getElementById('site-header');
+			if (header) {
+				window.addEventListener('scroll', function () {
+					header.classList.toggle('scrolled', window.scrollY > 20);
+				}, { passive: true });
+			}
+
+			const heroLogo = document.querySelector('.hero-logo');
+			const logoContainer = document.querySelector('.logoContainer');
+			if (heroLogo && logoContainer) {
+				const observer = new IntersectionObserver((entries) => {
+					entries.forEach(entry => {
+						logoContainer.classList.toggle('hero-logo-visible', entry.isIntersecting);
+					});
+				}, { threshold: 0.1 });
+				observer.observe(heroLogo);
+			}
+		})();
+	</script>
+
 </body>
 
 </html>
