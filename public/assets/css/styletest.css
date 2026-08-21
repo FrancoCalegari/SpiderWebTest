@@ -1162,7 +1162,8 @@ section h2 .accent {
   animation: scrollTrack var(--speed) linear infinite;
 }
 
-.sponsor-track:hover { animation-play-state: paused; }
+.sponsor-track:hover,
+.sponsor-track:active { animation-play-state: paused; }
 
 .sponsor-logos {
   display: flex;
@@ -1171,13 +1172,15 @@ section h2 .accent {
   padding: 12px 15px;
 }
 
-.sponsor-logos > div {
+.sponsor-logos > div,
+.sponsor-logos > a {
   display: flex;
   align-items: center;
   justify-content: center;
   width: var(--logo-width);
   height: 70px;
   flex-shrink: 0;
+  text-decoration: none;
 }
 
 .sponsor-logos img {
@@ -1190,7 +1193,8 @@ section h2 .accent {
 
 [data-theme="light"] .sponsor-logos img { filter: grayscale(100%) brightness(0.7); }
 
-.sponsor-logos > div:hover img {
+.sponsor-logos > div:hover img,
+.sponsor-logos > a:hover img {
   filter: grayscale(0%) brightness(1);
   transform: scale(1.08);
 }

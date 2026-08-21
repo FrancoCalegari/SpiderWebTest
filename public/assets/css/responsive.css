@@ -224,6 +224,18 @@
 
   /* Hero */
   .hero-metrics { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+
+  /* Sponsors / Clientes */
+  .sponsors { padding: 48px 16px; }
+  .sponsor-track { animation-duration: 40s; }
+  .sponsor-logos { gap: 24px; padding: 10px 12px; }
+  .sponsor-logos > div,
+  .sponsor-logos > a { width: 110px; height: 55px; }
+
+  /* FAQ */
+  .faq-section { padding: 56px 16px; }
+  .faq-question { padding: 16px 18px; font-size: 0.9rem; }
+  .faq-answer p { padding: 4px 18px 16px; font-size: 0.85rem; }
 }
 
 /* ── Small mobile (≤ 480px) ───────────────────────────────────────── */
@@ -258,6 +270,18 @@
 
   /* HUD corners hidden on very small */
   .hud-corner { display: none; }
+
+  /* Sponsors / Clientes */
+  .sponsors { padding: 36px 12px; }
+  .sponsor-track { animation-duration: 34s; }
+  .sponsor-logos { gap: 16px; padding: 6px 8px; }
+  .sponsor-logos > div,
+  .sponsor-logos > a { width: 90px; height: 44px; }
+
+  /* FAQ */
+  .faq-section { padding: 44px 12px; }
+  .faq-question { padding: 14px 14px; font-size: 0.85rem; }
+  .faq-answer p { padding: 2px 14px 14px; font-size: 0.8rem; }
 }
 
 /* ── About Section ────────────────────────────────────────────────── */

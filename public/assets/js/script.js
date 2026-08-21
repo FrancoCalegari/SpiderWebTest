@@ -98,12 +98,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			renderDesigns(data.designs);
 			initProjectsScrollbar();
 			initCarouselScroll(".designs-grid", ".designs-grid .design-item");
-			initFAQ();
 		})
 		.catch((err) => {
 			console.error("Error loading data:", err);
-			// Inicializar FAQ aunque falle el fetch
-			initFAQ();
 		});
 
 	function renderProjects(projects) {
@@ -296,21 +293,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	// --- FAQ ─────────────────────────────────────────────────────────
 	function initFAQ() {
-		document.querySelectorAll(".faq-question").forEach((question) => {
-			question.addEventListener("click", () => {
-				const isActive = question.classList.contains("active");
-				// Cerrar todos
-				document.querySelectorAll(".faq-question").forEach((q) => {
-					q.classList.remove("active");
+		const faqContainer = document.querySelector(".faq-container") || document.querySelector(".faq-section");
+		if (!faqContainer || faqContainer.dataset.faqInit) return;
+		faqContainer.dataset.faqInit = "true";
+
+		faqContainer.addEventListener("click", (e) => {
+			const question = e.target.closest(".faq-question");
+			if (!question) return;
+
+			const answer = question.nextElementSibling;
+			if (!answer) return;
+
+			const isActive = question.classList.contains("active");
+
+			// Cerrar todos los items
+			faqContainer.querySelectorAll(".faq-question").forEach((q) => {
+				q.classList.remove("active");
+				if (q.nextElementSibling) {
 					q.nextElementSibling.style.maxHeight = null;
-				});
-				// Abrir el clickeado si estaba cerrado
-				if (!isActive) {
-					question.classList.add("active");
-					question.nextElementSibling.style.maxHeight =
-						question.nextElementSibling.scrollHeight + "px";
 				}
 			});
+
+			// Abrir el clickeado si estaba cerrado
+			if (!isActive) {
+				question.classList.add("active");
+				answer.style.maxHeight = answer.scrollHeight + "px";
+			}
 		});
 	}
 
