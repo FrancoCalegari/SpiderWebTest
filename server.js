@@ -33,7 +33,7 @@ app.set("trust proxy", 1);
 const allowedOrigins = [
 	"http://localhost:3000",
 	"http://127.0.0.1:3000",
-	"https://spider-web-test.vercel.app"
+	"https://www.spiderwebarg.com.ar"
 ];
 app.use(cors({
 	origin: function (origin, callback) {

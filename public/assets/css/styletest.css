@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════
-   SpiderWeb ARG — Design System Completo
+   Spider-Web ARG — Design System Completo
    Sistema Táctico · Dark/Light Mode · Glassmorphism · Micro-animations
    Basado en DESIGN.md
    ═══════════════════════════════════════════════════════════════════ */
@@ -263,12 +263,12 @@ img {
   to   { opacity: 1; transform: translateY(0); }
 }
 @keyframes heroPulse {
-  0%, 100% { opacity: 0.35; transform: translate(-50%, -50%) scale(1); }
-  50%       { opacity: 0.65; transform: translate(-50%, -50%) scale(1.18); }
+  0%, 100% { opacity: 0.35; transform: translate3d(-50%, -50%, 0) scale(1); }
+  50%       { opacity: 0.65; transform: translate3d(-50%, -50%, 0) scale(1.18); }
 }
 @keyframes heroPulse2 {
-  0%, 100% { opacity: 0.25; transform: scale(1); }
-  50%       { opacity: 0.55; transform: scale(1.22); }
+  0%, 100% { opacity: 0.25; transform: translate3d(0, 0, 0) scale(1); }
+  50%       { opacity: 0.55; transform: translate3d(0, 0, 0) scale(1.22); }
 }
 @keyframes blink {
   50% { opacity: 0; }
@@ -487,10 +487,12 @@ img {
   background: radial-gradient(circle, var(--red-glow) 0%, transparent 65%);
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
   filter: blur(100px);
   pointer-events: none;
   animation: heroPulse 7s ease-in-out infinite;
+  transition: background 0.3s ease;
+  will-change: transform, opacity, background;
 }
 
 /* Secondary glow */
@@ -506,6 +508,8 @@ img {
   filter: blur(70px);
   pointer-events: none;
   animation: heroPulse2 9s ease-in-out infinite;
+  transition: background 0.3s ease;
+  will-change: transform, opacity, background;
 }
 
 /* Eyebrow tag */
@@ -1479,7 +1483,7 @@ section h2 .accent {
   transform: scale(1.08) translateY(-4px);
 }
 
-/* Logo section (Spider Web card) */
+/* Logo section (Spider-Web card) */
 .card-photo-logo {
   align-items: center;
   justify-content: center;
@@ -1565,7 +1569,7 @@ section h2 .accent {
   border-color: rgba(163, 0, 0, 0.45);
 }
 
-/* Gold tags (Spider Web) */
+/* Gold tags (Spider-Web) */
 .skill-tag-gold {
   background: rgba(180, 140, 0, 0.10);
   border: 1px solid rgba(180, 140, 0, 0.28);
@@ -1628,7 +1632,7 @@ section h2 .accent {
   box-shadow: 0 8px 24px rgba(180, 140, 0, 0.38);
 }
 
-/* Spider Web card */
+/* Spider-Web card */
 .spiderweb-card { border-color: rgba(180, 140, 0, 0.22); }
 .spiderweb-card::before { background: linear-gradient(135deg, #8a6500, #c9a230); }
 .spiderweb-card:hover { box-shadow: 0 18px 55px rgba(180, 140, 0, 0.22); }
@@ -2006,4 +2010,9 @@ section h2 .accent {
 @media (max-height: 760px) {
   .hero { min-height: 60vh; padding: 40px 20px 16px; }
   .hero-content h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+}
+
+/* ── Dynamic Logo Color (Dark/Light mode) ─────────────────────────── */
+html[data-theme="light"] img[src*="logo.svg"] {
+  filter: invert(1);
 }

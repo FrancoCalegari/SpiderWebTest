@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════
-   SpiderWeb ARG — Responsive & Hamburger Menu
+   Spider-Web ARG — Responsive & Hamburger Menu
    Siguiendo DESIGN.md breakpoints: ≤1024px · ≤768px · ≤480px
    ══════════════════════════════════════════════════════════════════ */
 
@@ -303,6 +303,8 @@
   right: -100px;
   filter: blur(120px);
   pointer-events: none;
+  transition: background 0.3s ease;
+  will-change: opacity, background;
 }
 
 .about-inner {
