@@ -82,10 +82,13 @@ app.get("/api/images/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
 		const fetch = require("node-fetch");
-		const API_URL = process.env.SPIDER_API_URL || "https://spiderwebargapi.com.ar/api/v1";
+		const API_URL = (process.env.SPIDER_API_URL || "https://spiderwebargapi.com.ar/api/v1").replace(/\/+$/, "");
 
 		const response = await fetch(`${API_URL}/storage/files/${id}`, {
-			headers: { "X-API-KEY": process.env.SPIDER_API_KEY }
+			headers: { 
+                "X-API-KEY": process.env.SPIDER_API_KEY,
+                "User-Agent": "SpiderWeb-Vercel/1.0"
+            }
 		});
 
 		if (!response.ok) {
