@@ -1,10 +1,10 @@
 {
 	"version": 2,
 	"rewrites": [
-		{ "source": "/api/(.*)", "destination": "/server.js" },
-		{ "source": "/login", "destination": "/server.js" },
-		{ "source": "/logout", "destination": "/server.js" },
-		{ "source": "/admin", "destination": "/server.js" },
-		{ "source": "/admin/(.*)", "destination": "/server.js" }
+		{ "source": "/api/(.*)", "destination": "/api" },
+		{ "source": "/login", "destination": "/api" },
+		{ "source": "/logout", "destination": "/api" },
+		{ "source": "/admin", "destination": "/api" },
+		{ "source": "/admin/(.*)", "destination": "/api" }
 	]
 }

@@ -37,7 +37,7 @@ const allowedOrigins = [
 ];
 app.use(cors({
 	origin: function (origin, callback) {
-		if (!origin || allowedOrigins.includes(origin)) {
+		if (!origin || allowedOrigins.includes(origin) || (origin && origin.endsWith(".vercel.app"))) {
 			callback(null, true);
 		} else {
 			callback(new Error("No permitido por CORS"));
@@ -82,7 +82,7 @@ app.get("/api/images/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
 		const fetch = require("node-fetch");
-		const API_URL = process.env.SPIDER_API_URL || "http://190.220.229.45:7256/api/v1";
+		const API_URL = process.env.SPIDER_API_URL || "https://spiderwebargapi.com.ar/api/v1";
 
 		const response = await fetch(`${API_URL}/storage/files/${id}`, {
 			headers: { "X-API-KEY": process.env.SPIDER_API_KEY }
