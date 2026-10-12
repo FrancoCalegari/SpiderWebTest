@@ -254,6 +254,10 @@
   .btn-primary,
   .btn-secondary { width: 100%; text-align: center; justify-content: center; }
 
+  .hero-qr-card { margin-top: 18px; padding: 10px 14px; gap: 12px; }
+  .hero-qr-title { font-size: 0.76rem; }
+  .hero-qr-img { width: 75px; height: 75px; }
+
   section { padding: 56px 16px; }
 
   .hero-metrics {

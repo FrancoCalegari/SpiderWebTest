@@ -659,6 +659,147 @@ img {
   color: var(--red);
 }
 
+/* ── Hero QR Card (Horizontal) ─────────────────────────────────────── */
+.hero-qr-card {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 24px;
+  padding: 12px 22px 12px 14px;
+  background: rgba(14, 10, 12, 0.75);
+  border: 1px solid var(--red-border, rgba(163, 0, 0, 0.35));
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-decoration: none;
+  z-index: 2;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease;
+  cursor: pointer;
+  text-align: left;
+}
+
+[data-theme="light"] .hero-qr-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(163, 0, 0, 0.25);
+}
+
+/* Luz roja pequeña difusa detrás de la tarjeta */
+.hero-qr-card::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  height: 90%;
+  border-radius: 20px;
+  background: radial-gradient(circle, rgba(220, 20, 60, 0.4) 0%, rgba(163, 0, 0, 0.18) 55%, transparent 75%);
+  filter: blur(16px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero-qr-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--red-bright, #c41f33);
+  box-shadow: 0 8px 28px rgba(163, 0, 0, 0.35);
+}
+
+.hero-qr-card:hover::before {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+/* Lado izquierdo: QR Box */
+.hero-qr-box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  background: #ffffff;
+  border: 2px solid var(--red-bright, #c41f33);
+  border-radius: 12px;
+  flex-shrink: 0;
+  /* Borde rojo y luz roja pequeña trasera */
+  box-shadow:
+    0 0 12px rgba(220, 20, 60, 0.45),
+    0 0 24px rgba(163, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-qr-card:hover .hero-qr-box {
+  border-color: #ff2a2a;
+  box-shadow:
+    0 0 18px rgba(255, 42, 42, 0.65),
+    0 0 35px rgba(196, 31, 51, 0.5);
+  transform: scale(1.02);
+}
+
+.hero-qr-img {
+  width: 95px;
+  height: 95px;
+  display: block;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+/* Lado derecho: Textos */
+.hero-qr-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+}
+
+.hero-qr-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero-qr-icon {
+  font-size: 1.25rem;
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-qr-title {
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.hero-qr-handle {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  color: rgba(var(--text-primary-rgb, 255, 255, 255), 0.65);
+  letter-spacing: 0.08em;
+  transition: color 0.25s ease;
+}
+
+[data-theme="light"] .hero-qr-handle {
+  color: #666;
+}
+
+.hero-qr-card:hover .hero-qr-handle {
+  color: var(--red-bright, #ff3344);
+}
+
 /* Hero metrics bar */
 .hero-metrics {
   position: relative;
